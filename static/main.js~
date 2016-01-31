@@ -1,5 +1,0 @@
-$(function() {
-    $("#postButton").on("click", function() {
-	alert("button clicked");
-    });
-});
