@@ -1,3 +1,7 @@
 #navbar_logo {
-    max-height:45px;
+    max-height: 45px;
+}
+
+#img_color_city {
+    max-width: 100%;
 }

@@ -8,9 +8,9 @@ app = Flask(__name__)
 # show index.html
 @app.route("/")
 def showIndex():
-  return render_template('test_page.html')
+  return render_template('index.html')
 
 if __name__ == '__main__':
-  app.debug = True # used for dev
+  app.debug = True # used for dev only
   host = '0.0.0.0'
   app.run(host)
