@@ -1,5 +1,5 @@
 import os
-import requests
+#import requests
 from flask import Flask, render_template, request
 from flask import redirect
 from flask import jsonify, json
