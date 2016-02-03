@@ -59,28 +59,9 @@
 	      </ul>
 	    </li>
 	  </ul>
-
-	  <!-- START search panel -->
-	  <ul class="nav navbar-nav navbar-right">
-	    <li>
-	      <div class="panel panel-default">
-		<div class="panel-body">		  
-		  <form class="form-inline" role="form" id="search-form">
-		    <div class="form-group">
-		      <label for="text">Enter city</label>
-		      <input type="text" class="form-control" id="city-input">
-		    </div>
-		    <button type="submit" class="btn btn-default">Search</button>
-		  </form>
-		</div>
-	      </div>
-	    </li>
-	  </ul>
-	  <!-- END search panel -->
+	  
 	</div> <!-- END .collapse -->
-
       </div> <!-- END .container -->
-
     </nav>
     <!-- END .navbar  -->
 
