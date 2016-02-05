@@ -1,35 +1,56 @@
-
 // updateWiki updates #wiki-accordion with wiki search articles
 var updateWiki = function(city) {
-    var $city = $('#city-input').val().toUpperCase();
-    // TO DO AJAX -------------------------
+    // update screen using resource
+    var updateWikiScreen = function(response) {
+	if (response[1].length != 0) {	 
+	    $('#wiki-accordion').empty();
+	    for (i = 0; i < response[1].length; i++) {
+		// parse response
+		var title = response[1][i];
+		var contents = response[2][i] + '<a href="' + 
+		    response[3][i] + '" target="_blank"> [link]</a>';
+		var collapse = (i < 2) ? " in" : ""; // open first two tabs
+		$('#wiki-accordion').append('<div class="panel panel-primary">' +
+					    '<div class="panel-heading">' +
+					    '<h4 class="panel-title">' +
+					    '<a data-toggle="collapse" data-parent="#accordion"' + 
+					    'href="#collapse-wiki' + i + '">' +
+					    title + '</a></h4></div>' +
+					    '<div id="collapse-wiki' + i + 
+					    '" class="panel-collapse collapse' + collapse  + '">' +
+					    '<div class="panel-body"><p>' +
+					    contents + '</p></div></div></div>');
+	    }
+	}
+	else {
+	    $('#wiki-accordion').empty();
+	    $('#wiki-accordion').append('<div class="panel panel-warning">' +
+					'<div class="panel-heading">' +
+					'<h4 class="panel-title">' +
+					'No Wiki articles - invalid input</h4></div></div>');
+	}
+    };
 
-    // TO DO ---------------- udpate AJAX contents
-    $('#wiki-accordion').empty();
-    for (i = 0; i < 3; i++) {
-	$title = $city + " title article " + i;
-	$contents = $city + " article contents " + i;
-	$collapse = (i < 2) ? " in" : "";
-	$('#wiki-accordion').append('<div class="panel panel-primary">' +
-				    '<div class="panel-heading">' +
-				    '<h4 class="panel-title">' +
-				    '<a data-toggle="collapse" data-parent="#accordion"' + 
-				    'href="#collapse' + i + '">' +
-				    $title + '</a></h4></div>' +
-				    '<div id="collapse' + i + 
-				    '" class="panel-collapse collapse' + $collapse  + '">' +
-				    '<div class="panel-body"><p>' +
-				    $contents + '</p></div></div></div>');
+    // request resource
+    $.ajax({
+	url: "wiki/" + city,
+	dataType: "json",
+	success: function(response) {
+	    updateWikiScreen(response['wiki-json']);
+	}
+    }).fail(function(e) {
+	alert("No connection")
+    });
+}; // END updateWiki
 
-    }
-    alert("City searched: " + $city);
-    //END wiki
-};
+
 
 // run on load of site
 $(function() {    
-    
+    // ADD random functionality
+
     $('#search-button').on('click', function() {
-	updateWiki();
+	var city = $('#city-input').val().toUpperCase();
+	updateWiki(city);
     });
 });

@@ -28,7 +28,7 @@
     <!-- start navbar  -->
     <nav class="navbar navbar-default">
       <div class="container-fluid">
-	<!-- Brand and toggle get grouped for better mobile display -->
+	<!-- START Brand and toggle get grouped for better mobile display -->
 	<div class="navbar-header">
 	  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 	    <span class="sr-only">Toggle navigation</span>
@@ -37,48 +37,28 @@
 	    <span class="icon-bar"></span>
 	  </button>
 	  <a class="navbar-brand" id="brand_icon" href="/">
-	    <img id="navbar_logo" src="../static/img/City_Sketch_logo.png" alt="City Sketch logo"></a>
+	    <img id="navbar-logo" src="../static/img/City_Sketch_logo.png" alt="City Sketch logo"></a>
 	</div>
+	<!-- END Brand -->
 
-	<!-- links, dropdowns -->
+	<!-- START .collapse links, dropdowns -->
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	  <ul class="nav navbar-nav">
 	    <li><a href="/">home</a></li>
-	    
-	    <li class="dropdown">
-	      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">sources<span class="caret"></span></a>
-	      <ul class="dropdown-menu">
-		<li><a href="http://query.nytimes.com/search/sitesearch/?action=click&contentCollection&region=TopBar&WT.nav=searchWidget&module=SearchSubmit&pgtype=Homepage#/san francisco" target="_blank">
-		    NYT</a></li>
-		<li role="separator" class="divider"></li>
-		<li><a href="/">source2</a></li>
-		<li role="separator" class="divider"></li>
-		<li><a href="/">source3</a></li>
-		<li role="separator" class="divider"></li>
-		<li><a href="/">source4</a></li>
-	      </ul>
-	    </li>
 	  </ul>
 
 	  <!-- START search panel -->
-	  <ul class="nav navbar-nav navbar-right">
-	    <li>
-	      <div class="panel panel-default">
-		<div class="panel-body">		  
-		  <form class="form-inline" role="form" id="search-form">
-		    <div class="form-group">
-		      <label for="text">Enter city</label>
-		      <input type="text" class="form-control" id="city-input">
-		    </div>
-		    <button type="submit" class="btn btn-default" id="search-button">Search</button>
-		  </form>
-		</div>
-	      </div>
-	    </li>
+	  <ul class="nav navbar-nav navbar-right" id="search-group">
+	    <div class="input-group">
+	      <input type="text" class="form-control" placeholder="Enter city name ..." 
+		     id="city-input">
+	      <span class="input-group-btn">
+		<button class="btn btn-success" type="button" id="search-button">Go!</button>
+	      </span>
+	    </div><!-- /input-group -->
 	  </ul>
 	  <!-- END search panel -->
 	</div> <!-- END .collapse -->
-
       </div> <!-- END .container -->
 
     </nav>
