@@ -22,9 +22,9 @@
     </div> <!-- END col -->
 
     <div class="col-sm-6"> <!-- START col -->
+      <h3>Wiki search</h3>
       <div class="panel-group" id="wiki-accordion">
-	<h3>Wiki search</h3>
-	<div class="panel panel-success">
+	<div class="panel panel-primary">
 	  <div class="panel-heading">
 	    <h4 class="panel-title">
               <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
@@ -33,7 +33,7 @@
 	  </div>
 	  <div id="collapse1" class="panel-collapse collapse in">
 	    <div class="panel-body">
-	      <p> Article 1 ontents </p>
+	      <p> Article 1 contents </p>
 	    </div>
 	  </div>
 	</div>

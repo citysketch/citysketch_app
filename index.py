@@ -17,7 +17,7 @@ def show_index():
 def return_wiki_json(city):
   wiki = requests.get('https://en.wikipedia.org/w/api.php?action=' + \
                       'opensearch&search=' + city  + '&format=json').json()
-  return jsonify({'res': wiki})
+  return jsonify({'wiki-json': wiki})
 
 
 if __name__ == '__main__':

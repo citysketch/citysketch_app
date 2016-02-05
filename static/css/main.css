@@ -1,7 +1,13 @@
-#navbar_logo {
+#navbar-logo {
     max-height: 43px;
 }
 
-#img_color_city {
+#img-color-city {
     max-width: 100%;
+}
+
+@media (min-width: 767px) {
+    #search-group {
+	max-width: 50%;
+    }
 }
