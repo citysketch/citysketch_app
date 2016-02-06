@@ -1,3 +1,4 @@
+/* custom elements */
 #navbar-logo {
     max-height: 43px;
 }
@@ -6,8 +7,29 @@
     max-width: 100%;
 }
 
+#google-img {
+    max-width: 100%;
+}
+
 @media (min-width: 767px) {
     #search-group {
 	max-width: 50%;
     }
+}
+
+
+
+/* updates to bootstrap */
+.panel-primary > .panel-heading {
+    color: #317eac;
+    background-color: #dddddd;
+    line-height: 80%;
+}
+
+.panel-title > a {
+    color: #317eac;
+}
+
+.panel-heading > h4 {
+    line-height: 80%;
 }

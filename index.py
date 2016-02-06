@@ -26,7 +26,13 @@ def wiki_json(city):
                       'opensearch&search=' + city  + '&format=json').json()
   return jsonify({'wiki-json': wiki})
 
-# to do NYT
+# return NYT json
+@app.route('/nyt-json/<city>')
+def nyt_json(city):
+  key = '532e9278d93c9c359096abdbbf5d65fd:14:74311752';
+  nyt = requests.get('http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + \
+                      city  + '&sort=newest&api-key=' + key).json()
+  return jsonify({'nyt-json': nyt})
 
 
 if __name__ == '__main__':

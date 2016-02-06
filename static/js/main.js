@@ -9,7 +9,7 @@ var updateWiki = function(city) {
 		// parse response
 		var title = response[1][i];
 		var contents = response[2][i] + '<a href="' + 
-		    response[3][i] + '" target="_blank"> [link]</a>';
+		    response[3][i] + '" target="_blank"> [details]</a>';
 		var collapse = (i < 2) ? " in" : ""; // open first two tabs
 		$('#wiki-accordion').append('<div class="panel panel-primary">' +
 					    '<div class="panel-heading">' +
@@ -44,9 +44,67 @@ var updateWiki = function(city) {
 	$('#wiki-accordion').append('<div class="panel panel-warning">' +
 					'<div class="panel-heading">' +
 					'<h4 class="panel-title">' +
-					'No Wiki articles - no connection</h4></div></div>');
+					'No connection to Wiki</h4></div></div>');
     });
 }; // END updateWiki
+// -------------------------------------------------------------------------------------------------
+
+
+
+// updateNYT updates #nyt-accordion with wiki search articles
+var updateNYT = function(city) {
+
+    // update screen using resource
+    var updateNYTScreen = function(response) {
+	//console.log(response['response']['docs']);
+	
+	if (response['response']['docs'].length != 0) {	 
+	    $('#nyt-accordion').empty();
+	    for (i = 0; i < response['response']['docs'].length; i++) {
+		var article = response['response']['docs'][i]
+		var title = article['headline']['main'];
+		var contents = article['snippet'] + '<a href="' + 
+		    article['web_url'] + '" target="_blank"> [details]</a>';
+		var collapse = (i < 2) ? " in" : ""; // open first two tabs
+		$('#nyt-accordion').append('<div class="panel panel-primary">' +
+					    '<div class="panel-heading">' +
+					    '<h4 class="panel-title">' +
+					    '<a data-toggle="collapse" data-parent="#accordion"' + 
+					    'href="#collapse-nyt' + i + '">' +
+					    title + '</a></h4></div>' +
+					    '<div id="collapse-nyt' + i + 
+					    '" class="panel-collapse collapse' + collapse  + '">' +
+					    '<div class="panel-body"><p>' +
+					    contents + '</p></div></div></div>');
+	    }
+	}
+	else {
+	    $('#nyt-accordion').empty();
+	    $('#nyt-accordion').append('<div class="panel panel-warning">' +
+					'<div class="panel-heading">' +
+					'<h4 class="panel-title">' +
+					'No NYT articles - invalid input</h4></div></div>');
+	}
+	
+    };
+
+    // request resource
+    $.ajax({
+	url: "nyt-json/" + city,
+	dataType: "json",
+	success: function(response) {
+	    updateNYTScreen(response['nyt-json']);
+	}
+    }).fail(function(e) {
+	$('#nyt-accordion').empty();
+	$('#nyt-accordion').append('<div class="panel panel-warning">' +
+					'<div class="panel-heading">' +
+					'<h4 class="panel-title">' +
+					'No connection to NYT</h4></div></div>');
+    });
+}; // END updateWiki
+
+
 // -------------------------------------------------------------------------------------------------
 
 
@@ -56,13 +114,16 @@ var updateScreen = function(address) {
     var city = address[0];
     $('#city-input').val(city);
     updateWiki(city);
-
+    updateNYT(city);
     // Replace with Google maps
+    $('#google-img').attr('src', 'http://maps.googleapis.com/maps/api/streetview?' + 
+	'size=600x400&location=' + city);
+    /*
     $('#google-img').remove();
     $('#now-col').append('<img id="google-img" src="' +
 			 'http://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + 
 			 city + '">');
-    
+    */
 };
 
 // run if user input is invalid
