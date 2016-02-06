@@ -78,7 +78,6 @@ var validateCity = function(userInput) {
 	dataType: "json",
 	async: "false",
 	success: function(response) {
-	    console.log(response)
 	    if (response['gmaps-json']['status'] != 'ZERO_RESULTS') {
 		var addressComp = response['gmaps-json']['results'][0]['address_components'];
 		if (addressComp[0]['types'][0] == 'locality' && 
