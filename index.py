@@ -12,9 +12,16 @@ app = Flask(__name__)
 def show_index():
   return render_template('index.html')
 
+# verify city using googleapis
+@app.route('/gmaps-json/<city>')
+def gmaps_json(city):
+  gmaps = requests.get('http://maps.googleapis.com/maps/api/geocode/json?address=' + \
+                      city  + '&sensor=true').json()
+  return jsonify({'gmaps-json': gmaps})
+
 # return Wiki json
-@app.route('/wiki/<city>')
-def return_wiki_json(city):
+@app.route('/wiki-json/<city>')
+def wiki_json(city):
   wiki = requests.get('https://en.wikipedia.org/w/api.php?action=' + \
                       'opensearch&search=' + city  + '&format=json').json()
   return jsonify({'wiki-json': wiki})

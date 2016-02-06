@@ -12,12 +12,14 @@ app = Flask(__name__)
 def show_index():
   return render_template('index.html')
 
-
+# return Wiki json
 @app.route('/wiki/<city>')
 def return_wiki_json(city):
   wiki = requests.get('https://en.wikipedia.org/w/api.php?action=' + \
                       'opensearch&search=' + city  + '&format=json').json()
   return jsonify({'wiki-json': wiki})
+
+# to do NYT
 
 
 if __name__ == '__main__':

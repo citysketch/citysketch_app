@@ -34,7 +34,7 @@ var updateWiki = function(city) {
 
     // request resource
     $.ajax({
-	url: "wiki/" + city,
+	url: "wiki-json/" + city,
 	dataType: "json",
 	success: function(response) {
 	    updateWikiScreen(response['wiki-json']);
@@ -47,26 +47,62 @@ var updateWiki = function(city) {
 					'No Wiki articles - no connection</h4></div></div>');
     });
 }; // END updateWiki
+// -------------------------------------------------------------------------------------------------
 
 
-// -------------------------------------------------------------
-// TO DO page fail
-// ------------------------------------------------------------
+
+// runs if user input is valid to update screen components
+var updateScreen = function(address) {
+    var city = address[0];
+    $('#city-input').val(city);
+    updateWiki(city);
+
+    // Replace with Google maps
+    $('#google-img').remove();
+    $('#now-col').append('<img id="google-img" src="' +
+			 'http://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + 
+			 city + '">');
+    
+};
+
+// run if user input is invalid
+var pageFail = function() {
+    $('#city-input').val("INVALID INPUT");
+};
+
+// TO DO ------------- country
+// validate userInput using Google Maps
+var validateCity = function(userInput) {
+    $.ajax({
+	url: "gmaps-json/" + userInput,
+	dataType: "json",
+	async: "false",
+	success: function(response) {
+	    if (response['gmaps-json']['status'] != 'ZERO_RESULTS') {
+		var addressComp = response['gmaps-json']['results'][0]['address_components'];
+		if (addressComp[0]['types'][0] == 'locality' && 
+		    addressComp[0]['types'][1] == 'political') {
+		    var longName = addressComp[0]['long_name'];
+		    // country
+		    updateScreen([longName]);
+		}
+		else {
+		    pageFail();
+		}}
+	    else {
+		pageFail();
+	    }
+	}
+    })
+}; // END validateCity
+
 
 // run on load of site
 $(function() {    
-
     $('#search-button').on('click', function() {
-	var city = $('#city-input').val().toUpperCase();
-	updateWiki(city);
+	var userInput = $('#city-input').val().toUpperCase();
 
-	// Replace with Google maps
-	$('#google-img').remove();
-	$('#now-col').append('<img id="google-img" src="' +
-			    'http://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + 
-			    city + '">');
+	// validate user input
+	validateCity(userInput);
     });
-    
-			
-
 });

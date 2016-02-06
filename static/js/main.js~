@@ -1,5 +1,6 @@
 // updateWiki updates #wiki-accordion with wiki search articles
 var updateWiki = function(city) {
+
     // update screen using resource
     var updateWikiScreen = function(response) {
 	if (response[1].length != 0) {	 
@@ -39,18 +40,33 @@ var updateWiki = function(city) {
 	    updateWikiScreen(response['wiki-json']);
 	}
     }).fail(function(e) {
-	alert("No connection")
+	$('#wiki-accordion').empty();
+	$('#wiki-accordion').append('<div class="panel panel-warning">' +
+					'<div class="panel-heading">' +
+					'<h4 class="panel-title">' +
+					'No Wiki articles - no connection</h4></div></div>');
     });
 }; // END updateWiki
 
 
+// -------------------------------------------------------------
+// TO DO page fail
+// ------------------------------------------------------------
 
 // run on load of site
 $(function() {    
-    // ADD random functionality
 
     $('#search-button').on('click', function() {
 	var city = $('#city-input').val().toUpperCase();
 	updateWiki(city);
+
+	// Replace with Google maps
+	$('#google-img').remove();
+	$('#now-col').append('<img id="google-img" src="' +
+			    'http://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + 
+			    city + '">');
     });
+    
+			
+
 });
