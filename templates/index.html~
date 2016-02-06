@@ -10,7 +10,44 @@
      </div> <!-- END col -->
   </div> <!-- END row -->
   
-  <div class="row"> <!-- START row -->
+  <div class="row"> <!-- START row 1 -->
+    <div class="col-sm-6"> <!-- START col -->
+      <h3>What's happening now?</h3>
+      <div class="panel panel-primary">
+	<div class="panel-heading">Weather</div>
+	<div class="panel-body">
+	  To be updated ...
+	</div>
+      </div>
+    </div> <!-- END col -->
+
+    <div class="col-sm-6"> <!-- START col -->
+      <h3>MediaWiki article search</h3>
+      <div class="panel-group" id="wiki-accordion">
+	<div class="panel panel-primary">
+	  <div class="panel-heading">
+	    <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse-wiki-blank">
+		Search to load Wiki articles</a>
+	    </h4>
+	  </div>
+	  <div id="collapse-wiki-blank" class="panel-collapse collapse">
+	    <div class="panel-body">
+	      <!-- body -->
+	    </div>
+	  </div>
+	</div>
+      </div>
+      <a href="https://www.mediawiki.org/wiki/MediaWiki" target="_blank"> 
+	powered by <img src="../static/img/Wiki-logo.png" alt="MediaWiki logo" height="50px">
+      </a>
+    </div> <!-- END col -->
+
+  </div> <!-- END row 1 -->
+  
+  
+
+  <div class="row"> <!-- START row 2 -->
     <div class="col-sm-6"> <!-- START col -->
       <h3>Twitter</h3>
       <div class="panel panel-primary">
@@ -22,47 +59,35 @@
     </div> <!-- END col -->
 
     <div class="col-sm-6"> <!-- START col -->
-      <h3>Wiki search</h3>
-      <div class="panel-group" id="wiki-accordion">
+      <h3>New York Times article search</h3>
+      <div class="panel-group" id="nyt-accordion">
 	<div class="panel panel-primary">
 	  <div class="panel-heading">
 	    <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-		Article 1 title</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse-nyt-blank">
+		Search to load NYT articles</a>
 	    </h4>
 	  </div>
-	  <div id="collapse1" class="panel-collapse collapse in">
+	  <div id="collapse-nyt-blank" class="panel-collapse collapse">
 	    <div class="panel-body">
-	      <p> Article 1 contents </p>
+	      <!-- body -->
 	    </div>
 	  </div>
 	</div>
-	<div class="panel panel-primary">
-	  <div class="panel-heading">
-	    <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-		Article 2 title</a>
-	    </h4>
-	  </div>
-	  <div id="collapse2" class="panel-collapse collapse">
-	    <div class="panel-body">
-	      <p>Article 2 contents</p>
-	    </div>
-	  </div>
-	</div>
-	
       </div>
-
+      <a href="http://developer.nytimes.com/docs" target="_blank"> 
+	powered by <img src="../static/img/NYT-logo.png" alt="NYT Developers logo" width="90px">
+      </a>
     </div> <!-- END col -->
 
   </div> <!-- END row -->
-  
+
   <div class="row">
     <div class="col-sm-12">
-      <img id="img_color_city" src="../static/img/color_city.png" alt="color city image">
+      <img id="img-color-city" src="../static/img/color-city.png" alt="color city image">
     </div> <!-- END col -->
-  </div> <!-- END row -->
-  
+  </div> <!-- END row 1 -->
+
 </div> <!-- END main container -->
 
 {% endblock %}
