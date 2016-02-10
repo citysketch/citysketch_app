@@ -2,23 +2,22 @@
 
 {% block body_block %}
 
+
+
+
+
 <!-- main container -->
 <div class = "container">
-  <div class="row">
-     <div class="col-sm-12">
-       <h2>Site under construction! Expected launch: 3/2016</h2>
-     </div> <!-- END col -->
-  </div> <!-- END row -->
+
+  <div class="jumbotron">
+    <h2>Site under construction!</h2>
+    <h4>Expected launch March 2016</h4>
+    <p>weather, local time, summary, articles, and breaking news</p>
+  </div>
   
   <div class="row"> <!-- START row 1 -->
     <div class="col-sm-6" id="now-col"> <!-- START col 1 -->
-      <h3>What's happening now?</h3>
-      <div class="panel panel-primary">
-	<div class="panel-heading">Weather</div>
-	<div class="panel-body">
-	  To be updated ...
-	</div>
-      </div>
+      <h3>Happening now</h3>
       
       <img id="google-img" src="../static/img/gmaps-placeholder.jpg" alt="Google Maps">
       
@@ -43,14 +42,11 @@
 	  </div>
 	  <div id="collapse-wiki-blank" class="panel-collapse collapse">
 	    <div class="panel-body">
-	      <!-- body -->
+	      <!-- panel body -->
 	    </div>
 	  </div>
 	</div>
       </div>
-      <a href="https://www.mediawiki.org/wiki/MediaWiki" target="_blank"> 
-	powered by <img src="../static/img/Wiki-logo.png" alt="MediaWiki logo" height="50px">
-      </a>
 
       <h3>New York Times article search</h3>
       <div class="panel-group" id="nyt-accordion">
@@ -63,23 +59,37 @@
 	  </div>
 	  <div id="collapse-nyt-blank" class="panel-collapse collapse">
 	    <div class="panel-body">
-	      <!-- body -->
+	      <!-- panel body -->
 	    </div>
 	  </div>
 	</div>
       </div>
-      <a href="http://developer.nytimes.com/docs" target="_blank"> 
-	powered by <img src="../static/img/NYT-logo.png" alt="NYT Developers logo" height="30px">
-      </a>
     </div> <!-- END col 2 -->
 
   </div> <!-- END row 1 -->
 
+  
   <div class="row"> <!-- START row 2 -->
     <div class="col-sm-12">
       <img id="img-color-city" src="../static/img/color-city.png" alt="color city image">
     </div> <!-- END col -->
   </div> <!-- END row 2 -->
+
+
+  <div class="row"> <!-- START row 3 -->
+    <div class="col-sm-12">
+      <p>powered by
+      <a href="http://developer.nytimes.com/docs" target="_blank"> 
+	<img src="../static/img/NYT-logo.png" alt="NYT Developers logo" height="30px">
+      </a>
+      <a href="https://www.mediawiki.org/wiki/MediaWiki" target="_blank"> 
+	<img src="../static/img/Wiki-logo.png" alt="MediaWiki logo" height="50px">
+      </a>
+      </p>
+    </div> <!-- END col -->
+  </div> <!-- END row 3 -->
+
+
 
 </div> <!-- END main container -->
 
