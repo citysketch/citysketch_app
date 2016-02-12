@@ -1,3 +1,7 @@
+# Filename: index.py
+# Author: Adam Novotny
+# Purpose: main routing file for third party API resources
+
 import os
 import requests
 from flask import Flask, render_template, request
@@ -18,6 +22,16 @@ def gmaps_json(city):
   gmaps = requests.get('http://maps.googleapis.com/maps/api/geocode/json?address=' + \
                       city  + '&sensor=true').json()
   return jsonify({'gmaps-json': gmaps})
+
+# return weather json
+@app.route('/weather-json', methods=['GET'])
+def weather_json():
+  lat = request.args.get('lat')
+  lon = request.args.get('lon')
+  weather = requests.get('http://api.openweathermap.org/data/2.5/forecast/daily?' + 
+                      'lat=' + lat + '&lon=' + lon + '&cnt=16&units=imperial&APPID=' + 
+                      'ef49a278b6557235d3372d9c5416d4f6').json()
+  return jsonify({'weather-json': weather})
 
 # return Wiki json
 @app.route('/wiki-json/<city>')

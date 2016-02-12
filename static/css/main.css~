@@ -11,6 +11,10 @@
     max-width: 100%;
 }
 
+#weather-group {
+    font-size: 150%;
+}
+
 @media (min-width: 767px) {
     #search-group {
 	max-width: 50%;
@@ -23,7 +27,7 @@
 .panel-primary > .panel-heading {
     color: #317eac;
     background-color: #dddddd;
-    line-height: 80%;
+    line-height: 100%;
 }
 
 .panel-title > a {
@@ -31,5 +35,5 @@
 }
 
 .panel-heading > h4 {
-    line-height: 80%;
+    line-height: 100%;
 }

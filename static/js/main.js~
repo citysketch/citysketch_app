@@ -1,3 +1,10 @@
+/* Filename: main.js
+ * Author: Adam Novotny
+ * Last mod: 2/12/2016
+ * Purpose: Loads jQuery main function once all other resources are loaded
+*/
+
+
 // updateWiki updates #wiki-accordion with wiki search articles
 var updateWiki = function(city) {
 
@@ -9,7 +16,7 @@ var updateWiki = function(city) {
 		// parse response
 		var title = response[1][i];
 		var contents = response[2][i] + '<a href="' + 
-		    response[3][i] + '" target="_blank"> [click for details]</a>';
+		    response[3][i] + '" target="_blank"> [details]</a>';
 		var collapse = (i < 2) ? " in" : ""; // open first two tabs
 		$('#wiki-accordion').append('<div class="panel panel-primary">' +
 					    '<div class="panel-heading">' +
@@ -64,7 +71,7 @@ var updateNYT = function(city) {
 		var article = response['response']['docs'][i]
 		var title = article['headline']['main'];
 		var contents = article['snippet'] + '<a href="' + 
-		    article['web_url'] + '" target="_blank"> [click for details]</a>';
+		    article['web_url'] + '" target="_blank"> [details]</a>';
 		var collapse = (i < 2) ? " in" : ""; // open first two tabs
 		$('#nyt-accordion').append('<div class="panel panel-primary">' +
 					    '<div class="panel-heading">' +
@@ -102,7 +109,7 @@ var updateNYT = function(city) {
 					'<h4 class="panel-title">' +
 					'No connection to NYT</h4></div></div>');
     });
-}; // END updateWiki
+}; // END updateNYT
 
 
 // -------------------------------------------------------------------------------------------------

@@ -1,3 +1,10 @@
+/* Filename: main.js
+ * Author: Adam Novotny
+ * Last mod: 2/12/2016
+ * Purpose: Loads jQuery main function once all other resources are loaded
+*/
+
+
 // updateWiki updates #wiki-accordion with wiki search articles
 var updateWiki = function(city) {
 
@@ -102,28 +109,73 @@ var updateNYT = function(city) {
 					'<h4 class="panel-title">' +
 					'No connection to NYT</h4></div></div>');
     });
-}; // END updateWiki
+}; // END updateNYT
 
 
 // -------------------------------------------------------------------------------------------------
 
 
 
+
+// updateWeather updates #weather-group with weather data
+var updateWeather = function(lat, lon) {
+
+    // update screen using resource
+    var updateWeatherScreen = function(response) {
+	var days = response['list']
+	$('#weather-group').empty();
+	for (i = 0; i < days.length; i++) {
+	    var temp = String(days[i]['temp']['day']);
+	    var temp0dp = temp.substring(0, temp.length - 3);
+	    var date = unixDate(days[i]['dt']);
+	    console.log(date.getDay());
+	    $('#weather-group').append('<button type="button" class="btn btn-primary">' + 
+				       date.getMonth() + ' / '  + date.getDate() + '</br>' +
+				       temp0dp  + '</button>');
+	}
+    };
+
+    // request resource
+    $.ajax({
+	url: 'weather-json?lat=' + lat + '&lon=' + lon,
+	dataType: "json",
+	success: function(response) {
+	    updateWeatherScreen(response['weather-json']);
+	}
+    }).fail(function(e) {
+	$('#weather-group').empty();
+	$('#weather-group').append('<span class="label label-warning">No weather data</span>');
+    });
+}; // END updateWeather
+
+
+// -------------------------------------------------------------------------------------------------
+
+// convert unix date to date object
+var unixDate = function(seconds) {
+    var date = new Date(seconds * 1000);
+    return date;
+}
+
+
+
 // runs if user input is valid to update screen components
 var updateScreen = function(address) {
+    // fields
     var city = address[0];
+    var lat = address[1];
+    var lon = address[2];
+    
+    // methods
     $('#city-input').val(city);
     updateWiki(city);
     updateNYT(city);
+    updateWeather(lat, lon);
+    
     // Replace with Google maps
     $('#google-img').attr('src', 'http://maps.googleapis.com/maps/api/streetview?' + 
 	'size=600x400&location=' + city);
-    /*
-    $('#google-img').remove();
-    $('#now-col').append('<img id="google-img" src="' +
-			 'http://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + 
-			 city + '">');
-    */
+    
 };
 
 // run if user input is invalid
@@ -143,9 +195,11 @@ var validateCity = function(userInput) {
 		var addressComp = response['gmaps-json']['results'][0]['address_components'];
 		if (addressComp[0]['types'][0] == 'locality' && 
 		    addressComp[0]['types'][1] == 'political') {
+		    var geo = response['gmaps-json']['results'][0]['geometry'];
 		    var longName = addressComp[0]['long_name'];
-		    // country
-		    updateScreen([longName]);
+		    var lat = geo['location']['lat'];
+		    var lon = geo['location']['lng'];
+		    updateScreen([longName, lat, lon]);
 		}
 		else {
 		    pageFail();

@@ -9,11 +9,16 @@
 <!-- main container -->
 <div class = "container">
 
-  <div class="jumbotron">
+  <div class="jumbotron"> <!-- START jumbotron -->
     <h2>Site under construction!</h2>
     <h4>Expected launch March 2016</h4>
     <p>weather, local time, summary, articles, and breaking news</p>
-  </div>
+
+    <h4>Weather forecast</h4>
+    <div class="btn-group" id="weather-group">
+    </div>
+
+  </div> <!-- END jumbotron -->
   
   <div class="row"> <!-- START row 1 -->
     <div class="col-sm-6" id="now-col"> <!-- START col 1 -->
@@ -30,23 +35,9 @@
       </div>
     </div> <!-- END col 1 -->
     
+
+
     <div class="col-sm-6"> <!-- START col 2 -->
-      <h3>MediaWiki article search</h3>
-      <div class="panel-group" id="wiki-accordion">
-	<div class="panel panel-primary">
-	  <div class="panel-heading">
-	    <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse-wiki-blank">
-		Search to load Wiki articles</a>
-	    </h4>
-	  </div>
-	  <div id="collapse-wiki-blank" class="panel-collapse collapse">
-	    <div class="panel-body">
-	      <!-- panel body -->
-	    </div>
-	  </div>
-	</div>
-      </div>
 
       <h3>New York Times article search</h3>
       <div class="panel-group" id="nyt-accordion">
@@ -64,6 +55,24 @@
 	  </div>
 	</div>
       </div>
+
+      <h3>MediaWiki article search</h3>
+      <div class="panel-group" id="wiki-accordion">
+	<div class="panel panel-primary">
+	  <div class="panel-heading">
+	    <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse-wiki-blank">
+		Search to load Wiki articles</a>
+	    </h4>
+	  </div>
+	  <div id="collapse-wiki-blank" class="panel-collapse collapse">
+	    <div class="panel-body">
+	      <!-- panel body -->
+	    </div>
+	  </div>
+	</div>
+      </div>
+      
     </div> <!-- END col 2 -->
 
   </div> <!-- END row 1 -->
