@@ -48,6 +48,44 @@ def nyt_json(city):
                       city  + '&sort=newest&api-key=' + key).json()
   return jsonify({'nyt-json': nyt})
 
+# return current time json
+@app.route('/time-json')
+def time_json():
+    import time
+
+    # read latitude and longitude parameters
+    lat = request.args.get('lat')
+    lng = request.args.get('lng')
+
+    TIMEZONE_DB_KEY = 'ZG48IWJBEN5R'
+
+    url = 'http://api.timezonedb.com/'
+    params = {
+        'key': TIMEZONE_DB_KEY,
+        'lat': lat,
+        'lng': lng,
+        'format': 'json'
+    }
+
+    response = requests.get(url, params=params).json()
+
+    # compute local time at given coordinates
+    timestamp = float(response['timestamp'])
+    local_time = time.gmtime(timestamp)
+
+
+    # format time as <hour>:<minute> <AM/PM>
+    time_string = time.strftime('%I:%M %p', local_time)
+
+    return jsonify({
+        'time':      time_string,
+        'timestamp': timestamp,
+        'zone_abbr': response['abbreviation'],
+        'zone_name': response['zoneName']
+    })
+
+
+
 
 if __name__ == '__main__':
   app.debug = True # used for dev only
