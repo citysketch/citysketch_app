@@ -1,6 +1,6 @@
 /* Filename: main.js
  * Author: Adam Novotny
- * Last mod: 2/12/2016
+ * Last update: 2/13/2016
  * Purpose: Loads jQuery main function once all other resources are loaded
 */
 
@@ -13,7 +13,7 @@ var updateWiki = function(city) {
 	if (response[1].length != 0) {	 
 	    $('#wiki-accordion').empty();
 	    for (i = 0; i < response[1].length; i++) {
-		// parse response
+		// parse response and update wiki-accordion
 		var title = response[1][i];
 		var contents = response[2][i] + '<a href="' + 
 		    response[3][i] + '" target="_blank"> [details]</a>';
@@ -28,6 +28,10 @@ var updateWiki = function(city) {
 					    '" class="panel-collapse collapse' + collapse  + '">' +
 					    '<div class="panel-body"><p>' +
 					    contents + '</p></div></div></div>');
+		// update city description in jumbotron
+		if (i == 0) {
+		    $('#city-description').html(contents);
+		}
 	    }
 	}
 	else {
@@ -115,22 +119,65 @@ var updateNYT = function(city) {
 // -------------------------------------------------------------------------------------------------
 
 
+// updateWeather updates #weather-group with weather data
+var updateWeather = function(lat, lon) {
+
+    // update screen using resource
+    var updateWeatherScreen = function(response) {
+	var days = response['list']
+	$('#weather-group').empty();
+	for (i = 0; i < days.length; i++) {
+	    var temp = String(days[i]['temp']['day']);
+	    var temp0dp = Math.round(temp);
+	    var date = unixDate(days[i]['dt']);
+	    $('#weather-group').append('<button type="button" class="btn btn-primary">' + 
+				       date.getMonth() + ' / '  + date.getDate() + '</br>' +
+				       temp0dp  + '&degF</button>');
+	}
+    };
+
+    // request resource
+    $.ajax({
+	url: 'weather-json?lat=' + lat + '&lon=' + lon,
+	dataType: "json",
+	success: function(response) {
+	    updateWeatherScreen(response['weather-json']);
+	}
+    }).fail(function(e) {
+	$('#weather-group').empty();
+	$('#weather-group').append('<span class="label label-warning">No weather data</span>');
+    });
+}; // END updateWeather
+
+
+// -------------------------------------------------------------------------------------------------
+
+// convert unix date to date object
+var unixDate = function(seconds) {
+    var date = new Date(seconds * 1000);
+    return date;
+}
+
+
 
 // runs if user input is valid to update screen components
 var updateScreen = function(address) {
+    // fields
     var city = address[0];
-    $('#city-input').val(city);
+    var lat = address[1];
+    var lon = address[2];
+    
+    // methods
+    $('#city-input').val("Enter city name ...");
+    $('#city-title').html(city);
     updateWiki(city);
     updateNYT(city);
+    updateWeather(lat, lon);
+    
     // Replace with Google maps
     $('#google-img').attr('src', 'http://maps.googleapis.com/maps/api/streetview?' + 
 	'size=600x400&location=' + city);
-    /*
-    $('#google-img').remove();
-    $('#now-col').append('<img id="google-img" src="' +
-			 'http://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + 
-			 city + '">');
-    */
+    
 };
 
 // run if user input is invalid
@@ -138,7 +185,6 @@ var pageFail = function() {
     $('#city-input').val("INVALID INPUT");
 };
 
-// TO DO ------------- country
 // validate userInput using Google Maps
 var validateCity = function(userInput) {
     $.ajax({
@@ -150,9 +196,11 @@ var validateCity = function(userInput) {
 		var addressComp = response['gmaps-json']['results'][0]['address_components'];
 		if (addressComp[0]['types'][0] == 'locality' && 
 		    addressComp[0]['types'][1] == 'political') {
+		    var geo = response['gmaps-json']['results'][0]['geometry'];
 		    var longName = addressComp[0]['long_name'];
-		    // country
-		    updateScreen([longName]);
+		    var lat = geo['location']['lat'];
+		    var lon = geo['location']['lng'];
+		    updateScreen([longName, lat, lon]);
 		}
 		else {
 		    pageFail();
@@ -165,12 +213,31 @@ var validateCity = function(userInput) {
 }; // END validateCity
 
 
+var randomCity = function() {
+    var cityList = ['Tokyo', 'Seoul', 'Delhi', 'Shanghai',
+		    'Manila', 'New York', 'Sao Paulo', 'Mexico City', 'Cairo',
+		    'Beijing', 'Osaka', 'Mumbai', 'Guangzhou', 'Moscow',
+		    'Los Angeles', 'Calcutta', 'Dhaka', 'Buenos Aires', 'Istanbul',
+		    'Rio de Janeiro', 'Shenzhen', 'Paris', 'Nagoya',
+		    'Lima', 'Chicago', 'Kinshasa', 'Tianjin', 'Chennai'];
+
+    cityList.sort(function() { return 0.5 - Math.random() }); // random shuffle
+    validateCity(cityList[0]);
+}
+
 // run on load of site
-$(function() {    
+$(function() {
+    // user search
     $('#search-button').on('click', function() {
 	var userInput = $('#city-input').val().toUpperCase();
-
-	// validate user input
 	validateCity(userInput);
     });
+
+    // random city selection
+    $('#random-button').on('click', function() {
+	randomCity();
+    });
+
+    // start with random city
+    randomCity();
 });

@@ -12,7 +12,8 @@
 }
 
 #weather-group {
-    font-size: 150%;
+    font-size: 100%;
+    max-width: 100%;
 }
 
 @media (min-width: 767px) {

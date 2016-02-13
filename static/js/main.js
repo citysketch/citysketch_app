@@ -1,6 +1,6 @@
 /* Filename: main.js
  * Author: Adam Novotny
- * Last mod: 2/12/2016
+ * Last update: 2/13/2016
  * Purpose: Loads jQuery main function once all other resources are loaded
 */
 
@@ -13,7 +13,7 @@ var updateWiki = function(city) {
 	if (response[1].length != 0) {	 
 	    $('#wiki-accordion').empty();
 	    for (i = 0; i < response[1].length; i++) {
-		// parse response
+		// parse response and update wiki-accordion
 		var title = response[1][i];
 		var contents = response[2][i] + '<a href="' + 
 		    response[3][i] + '" target="_blank"> [details]</a>';
@@ -28,6 +28,10 @@ var updateWiki = function(city) {
 					    '" class="panel-collapse collapse' + collapse  + '">' +
 					    '<div class="panel-body"><p>' +
 					    contents + '</p></div></div></div>');
+		// update city description in jumbotron
+		if (i == 0) {
+		    $('#city-description').html(contents);
+		}
 	    }
 	}
 	else {
@@ -115,8 +119,6 @@ var updateNYT = function(city) {
 // -------------------------------------------------------------------------------------------------
 
 
-
-
 // updateWeather updates #weather-group with weather data
 var updateWeather = function(lat, lon) {
 
@@ -126,12 +128,11 @@ var updateWeather = function(lat, lon) {
 	$('#weather-group').empty();
 	for (i = 0; i < days.length; i++) {
 	    var temp = String(days[i]['temp']['day']);
-	    var temp0dp = temp.substring(0, temp.length - 3);
+	    var temp0dp = Math.round(temp);
 	    var date = unixDate(days[i]['dt']);
-	    console.log(date.getDay());
 	    $('#weather-group').append('<button type="button" class="btn btn-primary">' + 
 				       date.getMonth() + ' / '  + date.getDate() + '</br>' +
-				       temp0dp  + '</button>');
+				       temp0dp  + '&degF</button>');
 	}
     };
 
@@ -167,7 +168,8 @@ var updateScreen = function(address) {
     var lon = address[2];
     
     // methods
-    $('#city-input').val(city);
+    $('#city-input').val("Enter city name ...");
+    $('#city-title').html(city);
     updateWiki(city);
     updateNYT(city);
     updateWeather(lat, lon);
@@ -183,7 +185,6 @@ var pageFail = function() {
     $('#city-input').val("INVALID INPUT");
 };
 
-// TO DO ------------- country
 // validate userInput using Google Maps
 var validateCity = function(userInput) {
     $.ajax({
@@ -212,12 +213,39 @@ var validateCity = function(userInput) {
 }; // END validateCity
 
 
+var randomCity = function() {
+    var cityList = ['Seoul', 'Delhi', 'Shanghai',
+		    'Manila', 'New York', 'Sao Paulo', 'Mexico City', 'Cairo',
+		    'Beijing', 'Osaka', 'Mumbai', 'Guangzhou', 'Moscow',
+		    'Los Angeles', 'Calcutta', 'Dhaka', 'Buenos Aires', 'Istanbul',
+		    'Rio de Janeiro', 'Shenzhen', 'Paris', 'Nagoya',
+		    'Lima', 'Chicago', 'Kinshasa', 'Tianjin', 'Chennai'];
+
+    cityList.sort(function() { return 0.5 - Math.random() }); // random shuffle
+    validateCity(cityList[0]);
+    /*testing
+    var i = 0;
+    setInterval(function(){
+	validateCity(cityList[i]);
+	i++;
+    }, 3000);
+    */
+}
+
+
 // run on load of site
-$(function() {    
+$(function() {
+    // user search
     $('#search-button').on('click', function() {
 	var userInput = $('#city-input').val().toUpperCase();
-
-	// validate user input
 	validateCity(userInput);
     });
+
+    // random city selection
+    $('#random-button').on('click', function() {
+	randomCity();
+    });
+
+    // start with random city
+    randomCity();
 });

@@ -9,11 +9,16 @@
 <!-- main container -->
 <div class = "container">
 
-  <div class="jumbotron">
-    <h2>Site under construction!</h2>
-    <h4>Expected launch March 2016</h4>
+  <div class="jumbotron"> <!-- START jumbotron -->
+    <h4 style="color:red;">Site under construction! Expected launch March 2016</h4>
+    
+    <h2 id="city-title"></h2>
     <p>weather, local time, summary, articles, and breaking news</p>
-  </div>
+    <h4>Weather forecast</h4>
+    <div class="btn-group" id="weather-group">
+    </div>
+    <p id="city-description"></p>
+  </div> <!-- END jumbotron -->
   
   <div class="row"> <!-- START row 1 -->
     <div class="col-sm-6" id="now-col"> <!-- START col 1 -->
@@ -88,6 +93,9 @@
       </a>
       <a href="https://www.mediawiki.org/wiki/MediaWiki" target="_blank"> 
 	<img src="../static/img/Wiki-logo.png" alt="MediaWiki logo" height="50px">
+      </a>
+      <a href="http://openweathermap.org/api" target="_blank"> 
+	<img src="../static/img/OpenWeatherMap-logo.png" alt="OpenWeatherMap logo" width="150px">
       </a>
       </p>
     </div> <!-- END col -->
