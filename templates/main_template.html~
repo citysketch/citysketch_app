@@ -55,6 +55,8 @@
 	      <span class="input-group-btn">
 		<button class="btn btn-success" type="button" id="search-button">
 		  Sketch City!</button>
+		<button class="btn btn-info" type="button" id="random-button">
+		  My next trip</button>
 	      </span>
 	    </div><!-- /input-group -->
 	  </ul>
@@ -65,7 +67,27 @@
     </nav>
     <!-- END .navbar  -->
 
+
     {% block body_block %}{% endblock %}
-   
+
+
+    <!-- footer -->
+    <div class="container">
+      <div class="row"> <!-- START footer -->
+	<div class="col-sm-12">
+	  <p>powered by
+	    <a href="http://developer.nytimes.com/docs" target="_blank"> 
+	      <img src="../static/img/NYT-logo.png" alt="NYT Developers logo" height="30px">
+	    </a>
+	    <a href="https://www.mediawiki.org/wiki/MediaWiki" target="_blank"> 
+	      <img src="../static/img/Wiki-logo.png" alt="MediaWiki logo" height="50px">
+	    </a>
+	    <a href="http://openweathermap.org/api" target="_blank"> 
+	      <img src="../static/img/OpenWeatherMap-logo.png" alt="OpenWeatherMap logo" width="150px">
+	    </a>
+	  </p>
+	</div> <!-- END col -->
+      </div> <!-- END row 3 -->
+    </div> <!-- END container -->
   </body>
 </html>

@@ -4,6 +4,7 @@
 
 import os
 import requests
+import random
 from flask import Flask, render_template, request
 from flask import redirect
 from flask import jsonify, json
@@ -45,11 +46,11 @@ def wiki_json(city):
 def nyt_json(city):
   key = '532e9278d93c9c359096abdbbf5d65fd:14:74311752';
   nyt = requests.get('http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + \
-                      city  + '&sort=newest&api-key=' + key).json()
+                      city + '&sort=newest&api-key=' + key).json()
   return jsonify({'nyt-json': nyt})
 
 # return current time json
-@app.route('/time-json')
+@app.route('/time-json', methods=['GET'])
 def time_json():
     import time
 
@@ -57,33 +58,47 @@ def time_json():
     lat = request.args.get('lat')
     lng = request.args.get('lng')
 
-    TIMEZONE_DB_KEY = 'ZG48IWJBEN5R'
+    TIMEZONE_DB_KEY = 'RI1ZCW7725DU'
 
     url = 'http://api.timezonedb.com/'
     params = {
-        'key': TIMEZONE_DB_KEY,
-        'lat': lat,
-        'lng': lng,
-        'format': 'json'
+      'lat': lat,
+      'lng': lng,
+      'format': 'json',
+      'key': TIMEZONE_DB_KEY,
     }
 
     response = requests.get(url, params=params).json()
+    if response['status'] == "OK":
+      # compute local time at given coordinates
+      timestamp = float(response['timestamp'])
+      local_time = time.gmtime(timestamp)
 
-    # compute local time at given coordinates
-    timestamp = float(response['timestamp'])
-    local_time = time.gmtime(timestamp)
 
+      # format time as <hour>:<minute> <AM/PM>
+      time_string = time.strftime('%I:%M %p', local_time)
 
-    # format time as <hour>:<minute> <AM/PM>
-    time_string = time.strftime('%I:%M %p', local_time)
-
-    return jsonify({
+      return jsonify({
         'time':      time_string,
         'timestamp': timestamp,
         'zone_abbr': response['abbreviation'],
         'zone_name': response['zoneName']
-    })
+      })
 
+
+# verify city using googleapis
+@app.route('/random-city')
+def random_city():
+  return jsonify({'random-city': random.choice(cityList)})
+
+
+# list of tested cities
+cityList = ['Seoul', 'Delhi', 'Shanghai',
+            'Manila', 'New York', 'Sao Paulo', 'Mexico City', 'Cairo',
+            'Beijing', 'Osaka', 'Mumbai', 'Guangzhou', 'Moscow',
+            'Los Angeles', 'Calcutta', 'Dhaka', 'Buenos Aires', 'Istanbul',
+            'Rio de Janeiro', 'Shenzhen', 'Paris', 'Nagoya',
+            'Lima', 'Chicago', 'Kinshasa', 'Tianjin', 'Chennai']
 
 
 

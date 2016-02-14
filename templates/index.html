@@ -10,19 +10,21 @@
 <div class = "container">
 
   <div class="jumbotron"> <!-- START jumbotron -->
-    <h4 style="color:red;">Site under construction! Expected launch March 2016</h4>
+    <h4 style="color:red;">App under construction! Expected launch March 2016</h4>
     
+    <div>
     <h2 id="city-title"></h2>
-    <p>weather, local time, summary, articles, and breaking news</p>
+    <button class="btn btn-info" type="button" id="refresh-button">
+      Refresh</button>
+    </div>
 
     <h4>Local time</h4>
     <div id="local-time"></div>
-    
     <h4>Weather forecast</h4>
     <div class="btn-group" id="weather-group">
     </div>
     <h4>Overview</h4>
-    <p id="city-description"></p>
+    <div id="city-description"></div>
   </div> <!-- END jumbotron -->
   
   <div class="row"> <!-- START row 1 -->
@@ -90,25 +92,6 @@
       <img id="img-color-city" src="../static/img/color-city.png" alt="color city image">
     </div> <!-- END col -->
   </div> <!-- END row 2 -->
-
-
-  <div class="row"> <!-- START row 3 -->
-    <div class="col-sm-12">
-      <p>powered by
-      <a href="http://developer.nytimes.com/docs" target="_blank"> 
-	<img src="../static/img/NYT-logo.png" alt="NYT Developers logo" height="30px">
-      </a>
-      <a href="https://www.mediawiki.org/wiki/MediaWiki" target="_blank"> 
-	<img src="../static/img/Wiki-logo.png" alt="MediaWiki logo" height="50px">
-      </a>
-      <a href="http://openweathermap.org/api" target="_blank"> 
-	<img src="../static/img/OpenWeatherMap-logo.png" alt="OpenWeatherMap logo" width="150px">
-      </a>
-      </p>
-    </div> <!-- END col -->
-  </div> <!-- END row 3 -->
-
-
 
 </div> <!-- END main container -->
 

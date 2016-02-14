@@ -1,5 +1,10 @@
+# Filename: index.py
+# Author: Adam Novotny
+# Purpose: main routing file for third party API resources
+
 import os
 import requests
+import random
 from flask import Flask, render_template, request
 from flask import redirect
 from flask import jsonify, json
@@ -19,6 +24,16 @@ def gmaps_json(city):
                       city  + '&sensor=true').json()
   return jsonify({'gmaps-json': gmaps})
 
+# return weather json
+@app.route('/weather-json', methods=['GET'])
+def weather_json():
+  lat = request.args.get('lat')
+  lon = request.args.get('lon')
+  weather = requests.get('http://api.openweathermap.org/data/2.5/forecast/daily?' + 
+                      'lat=' + lat + '&lon=' + lon + '&cnt=16&units=imperial&APPID=' + 
+                      'ef49a278b6557235d3372d9c5416d4f6').json()
+  return jsonify({'weather-json': weather})
+
 # return Wiki json
 @app.route('/wiki-json/<city>')
 def wiki_json(city):
@@ -33,6 +48,58 @@ def nyt_json(city):
   nyt = requests.get('http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + \
                       city  + '&sort=newest&api-key=' + key).json()
   return jsonify({'nyt-json': nyt})
+
+# return current time json
+@app.route('/time-json', methods=['GET'])
+def time_json():
+    import time
+
+    # read latitude and longitude parameters
+    lat = request.args.get('lat')
+    lng = request.args.get('lng')
+
+    TIMEZONE_DB_KEY = 'RI1ZCW7725DU'
+
+    url = 'http://api.timezonedb.com/'
+    params = {
+        'key': TIMEZONE_DB_KEY,
+        'lat': lat,
+        'lng': lng,
+        'format': 'json'
+    }
+
+    response = requests.get(url, params=params).json()
+
+    # compute local time at given coordinates
+    timestamp = float(response['timestamp'])
+    local_time = time.gmtime(timestamp)
+
+
+    # format time as <hour>:<minute> <AM/PM>
+    time_string = time.strftime('%I:%M %p', local_time)
+
+    return jsonify({
+        'time':      time_string,
+        'timestamp': timestamp,
+        'zone_abbr': response['abbreviation'],
+        'zone_name': response['zoneName']
+    })
+
+
+# verify city using googleapis
+@app.route('/random-city')
+def random_city():
+  return jsonify({'random-city': random.choice(cityList)})
+
+
+# list of tested cities
+cityList = ['Seoul', 'Delhi', 'Shanghai',
+            'Manila', 'New York', 'Sao Paulo', 'Mexico City', 'Cairo',
+            'Beijing', 'Osaka', 'Mumbai', 'Guangzhou', 'Moscow',
+            'Los Angeles', 'Calcutta', 'Dhaka', 'Buenos Aires', 'Istanbul',
+            'Rio de Janeiro', 'Shenzhen', 'Paris', 'Nagoya',
+            'Lima', 'Chicago', 'Kinshasa', 'Tianjin', 'Chennai']
+
 
 
 if __name__ == '__main__':
