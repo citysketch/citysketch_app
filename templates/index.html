@@ -6,107 +6,117 @@
 
 
 
-<!-- main container -->
-<div class = "container">
+    <!-- main container -->
+    <div class="container">
 
-  <div class="jumbotron"> <!-- START jumbotron -->
-    <h4 style="color:red;">Site under construction! Expected launch March 2016</h4>
-    
-    <h2 id="city-title"></h2>
-    
-    <p>weather, local time, summary, articles, and breaking news</p>
-    <h4>Weather forecast</h4>
-    <div class="btn-group" id="weather-group">
-    </div>
-    <h4>Overview</h4>
-    <p id="city-description"></p>
-  </div> <!-- END jumbotron -->
-  
-  <div class="row"> <!-- START row 1 -->
-    <div class="col-sm-6" id="now-col"> <!-- START col 1 -->
+        <div class="jumbotron"> <!-- START jumbotron -->
+            <h4 style="color:red;">Site under construction! Expected launch March 2016</h4>
 
-      <h3>Twitter</h3>
-      <div class="panel panel-primary">
-	<div class="panel-heading">Latest update</div>
-	<div class="panel-body">
-	  Feed ...
-	</div>
-      </div>
+            <h2 id="city-title"></h2>
 
-      <h3>[Image]</h3>
-      
-      <img id="google-img" src="../static/img/gmaps-placeholder.jpg" alt="Google Maps">
+            <p>weather, local time, summary, articles, and breaking news</p>
+            <h4>Weather forecast</h4>
+            <div class="btn-group" id="weather-group">
+            </div>
+            <h4>Overview</h4>
+            <p id="city-description"></p>
+        </div> <!-- END jumbotron -->
 
-    </div> <!-- END col 1 -->
-    
+        <div class="row"> <!-- START row 1 -->
+            <div class="col-sm-6" id="now-col"> <!-- START col 1 -->
 
+                <h3>Twitter (Demo)</h3>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Latest update</div>
+                    <div class="panel-body">
+                        <!--This is temporary until I figure out how to dynamically add it Yousuf 2/13/16-->
+                        <a class="twitter-timeline" href="https://twitter.com/hashtag/city"
+                           data-widget-id="698702117754654720">#city Tweets</a>
+                        <script>!function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                            if (!d.getElementById(id)) {
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = p + "://platform.twitter.com/widgets.js";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }
+                        }(document, "script", "twitter-wjs");</script>
 
-    <div class="col-sm-6"> <!-- START col 2 -->
+                    </div>
+                </div>
 
-      <h3>New York Times article search</h3>
-      <div class="panel-group" id="nyt-accordion">
-	<div class="panel panel-primary">
-	  <div class="panel-heading">
-	    <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse-nyt-blank">
-		Search to load NYT articles</a>
-	    </h4>
-	  </div>
-	  <div id="collapse-nyt-blank" class="panel-collapse collapse">
-	    <div class="panel-body">
-	      <!-- panel body -->
-	    </div>
-	  </div>
-	</div>
-      </div>
+                <h3>[Image]</h3>
 
-      <h3>MediaWiki article search</h3>
-      <div class="panel-group" id="wiki-accordion">
-	<div class="panel panel-primary">
-	  <div class="panel-heading">
-	    <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse-wiki-blank">
-		Search to load Wiki articles</a>
-	    </h4>
-	  </div>
-	  <div id="collapse-wiki-blank" class="panel-collapse collapse">
-	    <div class="panel-body">
-	      <!-- panel body -->
-	    </div>
-	  </div>
-	</div>
-      </div>
-      
-    </div> <!-- END col 2 -->
+                <img id="google-img" src="../static/img/gmaps-placeholder.jpg" alt="Google Maps">
 
-  </div> <!-- END row 1 -->
-
-  
-  <div class="row"> <!-- START row 2 -->
-    <div class="col-sm-12">
-      <img id="img-color-city" src="../static/img/color-city.png" alt="color city image">
-    </div> <!-- END col -->
-  </div> <!-- END row 2 -->
+            </div> <!-- END col 1 -->
 
 
-  <div class="row"> <!-- START row 3 -->
-    <div class="col-sm-12">
-      <p>powered by
-      <a href="http://developer.nytimes.com/docs" target="_blank"> 
-	<img src="../static/img/NYT-logo.png" alt="NYT Developers logo" height="30px">
-      </a>
-      <a href="https://www.mediawiki.org/wiki/MediaWiki" target="_blank"> 
-	<img src="../static/img/Wiki-logo.png" alt="MediaWiki logo" height="50px">
-      </a>
-      <a href="http://openweathermap.org/api" target="_blank"> 
-	<img src="../static/img/OpenWeatherMap-logo.png" alt="OpenWeatherMap logo" width="150px">
-      </a>
-      </p>
-    </div> <!-- END col -->
-  </div> <!-- END row 3 -->
+            <div class="col-sm-6"> <!-- START col 2 -->
+
+                <h3>New York Times article search</h3>
+                <div class="panel-group" id="nyt-accordion">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse-nyt-blank">
+                                    Search to load NYT articles</a>
+                            </h4>
+                        </div>
+                        <div id="collapse-nyt-blank" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <!-- panel body -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>MediaWiki article search</h3>
+                <div class="panel-group" id="wiki-accordion">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse-wiki-blank">
+                                    Search to load Wiki articles</a>
+                            </h4>
+                        </div>
+                        <div id="collapse-wiki-blank" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <!-- panel body -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- END col 2 -->
+
+        </div> <!-- END row 1 -->
 
 
+        <div class="row"> <!-- START row 2 -->
+            <div class="col-sm-12">
+                <img id="img-color-city" src="../static/img/color-city.png" alt="color city image">
+            </div> <!-- END col -->
+        </div> <!-- END row 2 -->
 
-</div> <!-- END main container -->
+
+        <div class="row"> <!-- START row 3 -->
+            <div class="col-sm-12">
+                <p>powered by
+                    <a href="http://developer.nytimes.com/docs" target="_blank">
+                        <img src="../static/img/NYT-logo.png" alt="NYT Developers logo" height="30px">
+                    </a>
+                    <a href="https://www.mediawiki.org/wiki/MediaWiki" target="_blank">
+                        <img src="../static/img/Wiki-logo.png" alt="MediaWiki logo" height="50px">
+                    </a>
+                    <a href="http://openweathermap.org/api" target="_blank">
+                        <img src="../static/img/OpenWeatherMap-logo.png" alt="OpenWeatherMap logo" width="150px">
+                    </a>
+                </p>
+            </div> <!-- END col -->
+        </div> <!-- END row 3 -->
+
+
+    </div> <!-- END main container -->
 
 {% endblock %}
