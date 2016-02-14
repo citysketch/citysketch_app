@@ -150,14 +150,40 @@ var updateWeather = function(lat, lon) {
 }; // END updateWeather
 
 
-// -------------------------------------------------------------------------------------------------
-
 // convert unix date to date object
 var unixDate = function(seconds) {
     var date = new Date(seconds * 1000);
     return date;
 }
 
+// -------------------------------------------------------------------------------------------------
+
+// given the latitude and longitude, update the "local time" display
+var updateTime = function(lat, lng) {
+    // clear the time display
+    $('#local-time').empty();
+
+    var updateTimeScreen = function(response) {
+        // show the local time as well as the time zone
+        var local_time = response['time'] + ' ' + response['zone_abbr'];
+        var time_html = '<p>' + local_time + '</p>';
+
+	    $('#local-time').append(time_html);
+	}
+
+    // Make a request for the time information.
+    // If this succeeds, the time display will be updated.
+    // If this fails, the time display has already been cleared.
+    $.ajax({
+        url: "time-json?" + 'lat=' + lat + '&lng=' + lng,
+        dataType: "json",
+        success: function(response) {
+            updateTimeScreen(response);
+        }
+    });
+
+}; // END updateTime
+// -------------------------------------------------------------------------------------------------
 
 
 // runs if user input is valid to update screen components
@@ -173,7 +199,7 @@ var updateScreen = function(address) {
     updateWiki(city);
     updateNYT(city);
     updateWeather(lat, lon);
-    
+    updateTime(lat, lon);
     // Replace with Google maps
     $('#google-img').attr('src', 'http://maps.googleapis.com/maps/api/streetview?' + 
 	'size=600x400&location=' + city);
