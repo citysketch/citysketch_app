@@ -54,7 +54,7 @@ var updateWiki = function(city) {
 
     // request resource
     $.ajax({
-	url: "wiki-json/" + city,
+	url: "wiki-json?" + 'city=' + city,
 	dataType: "json",
 	success: function(response) {
 	    updateWikiScreen(response['wiki-json']);
@@ -108,8 +108,8 @@ var updateNYT = function(city) {
 
     // request resource
     $.ajax({
-	url: "nyt-json/" + city,
-	dataType: "json",
+	url: 'nyt-json?' + 'city=' + city,
+	dataType: 'json',
 	success: function(response) {
 	    updateNYTScreen(response['nyt-json']);
 	}
@@ -234,7 +234,8 @@ var updateScreen = function() {
 
 // run if user input is invalid
 var pageFail = function() {
-    $('#city-input').val("INVALID INPUT");
+    $('#city-input').val("");
+    $('#city-input').attr('placeholder', "INVALID INPUT");
 };
 
 // contains currenly city details
@@ -248,7 +249,7 @@ var currentCity = function(ci, co, la, lo) {
 // validate userInput using Google Maps
 var validateCity = function(userInput) {
     $.ajax({
-	url: "gmaps-json/" + userInput,
+	url: "gmaps-json?" + 'city=' + userInput,
 	dataType: "json",
 	async: "false",
 	success: function(response) {
@@ -276,7 +277,10 @@ var validateCity = function(userInput) {
 	    else {
 		pageFail();
 	    }
-	}
+	},
+	error: function(jqXHR, textStatus, errorThrown) {
+	    pageFail();
+        }
     })
 }; // END validateCity
 
@@ -294,22 +298,31 @@ var randomCity = function() {
     }
     getRandom();
 
-    // testing only
+    // testing only ///////////////////////////////
     /*
     var i = 0;
     setInterval(function(){
 	getRandom();
 	i++;
     }, 3000);
-    */
+    *//////////////////////////////////////////////
 }
+
+
+// Use the browser's built-in functionality to quickly and safely escape the
+// string
+function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str)); //.createTextNode escapes strings
+    return div.innerHTML;
+};
 
 
 // run on load of site
 $(function() {
     // user search
     $('#search-button').on('click', function() {
-	var userInput = $('#city-input').val().toUpperCase();
+	var userInput = escapeHtml($('#city-input').val());
 	validateCity(userInput);
     });
 
