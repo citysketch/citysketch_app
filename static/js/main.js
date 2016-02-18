@@ -7,6 +7,14 @@
 
 // updateWiki updates #wiki-accordion with wiki search articles
 var updateWiki = function(city) {
+    var city = city;
+
+    // handling unusual cases, manual update
+    switch(city) {
+    case 'New York':
+        city = "New York City"
+        break;
+    }
 
     // update screen using resource
     var updateWikiScreen = function(response) {
@@ -203,7 +211,8 @@ var updateScreen = function(address) {
     var lon = address[3];
     
     // methods
-    $('#city-input').val("Enter city name ...");
+    $('#city-input').val("");
+    $('#city-input').attr('placeholder', city);
     $('#city-title').html(city);
     updateWiki(city);
     updateNYT(city + " " + country);

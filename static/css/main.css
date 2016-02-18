@@ -22,6 +22,9 @@
     }
 }
 
+#search-button, #refresh-button, #random-buttom {
+    width: 100px;
+}
 
 
 /* updates to bootstrap */

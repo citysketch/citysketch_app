@@ -10,8 +10,9 @@ var updateWiki = function(city) {
 
     // update screen using resource
     var updateWikiScreen = function(response) {
-	if (response[1].length != 0) {	 
-	    $('#wiki-accordion').empty();
+	$('#wiki-accordion').empty();
+	$('#city-description').empty();
+	if (response[1].length != 0) {	 	    
 	    for (i = 0; i < response[1].length; i++) {
 		// parse response and update wiki-accordion
 		var title = response[1][i];
@@ -30,7 +31,7 @@ var updateWiki = function(city) {
 					    contents + '</p></div></div></div>');
 		// update city description in jumbotron
 		if (i == 0) {
-		    $('#city-description').html(contents);
+		    $('#city-description').append('<p>' + contents + '</p>');
 		}
 	    }
 	}
@@ -68,9 +69,8 @@ var updateNYT = function(city) {
     // update screen using resource
     var updateNYTScreen = function(response) {
 	//console.log(response['response']['docs']);
-	
+	$('#nyt-accordion').empty();
 	if (response['response']['docs'].length != 0) {	 
-	    $('#nyt-accordion').empty();
 	    for (i = 0; i < response['response']['docs'].length; i++) {
 		var article = response['response']['docs'][i]
 		var title = article['headline']['main'];
@@ -90,7 +90,6 @@ var updateNYT = function(city) {
 	    }
 	}
 	else {
-	    $('#nyt-accordion').empty();
 	    $('#nyt-accordion').append('<div class="panel panel-warning">' +
 					'<div class="panel-heading">' +
 					'<h4 class="panel-title">' +
@@ -121,11 +120,10 @@ var updateNYT = function(city) {
 
 // updateWeather updates #weather-group with weather data
 var updateWeather = function(lat, lon) {
-
     // update screen using resource
     var updateWeatherScreen = function(response) {
-	var days = response['list']
 	$('#weather-group').empty();
+	var days = response['list']
 	for (i = 0; i < days.length; i++) {
 	    var temp = String(days[i]['temp']['day']);
 	    var temp0dp = Math.round(temp);
@@ -160,27 +158,37 @@ var unixDate = function(seconds) {
 
 // given the latitude and longitude, update the "local time" display
 var updateTime = function(lat, lng) {
-    // clear the time display
-    $('#local-time').empty();
 
     var updateTimeScreen = function(response) {
+	$('#local-time').empty();
         // show the local time as well as the time zone
-        var local_time = response['time'] + ' ' + response['zone_abbr'];
+        var local_time = response['time'] + " (" + response['zone_name'] 
+	    + " "  + response['zone_abbr'] + ")";
         var time_html = '<p>' + local_time + '</p>';
-
-	    $('#local-time').append(time_html);
-	}
+	$('#local-time').append(time_html);
+    }
 
     // Make a request for the time information.
     // If this succeeds, the time display will be updated.
     // If this fails, the time display has already been cleared.
-    $.ajax({
-        url: "time-json?" + 'lat=' + lat + '&lng=' + lng,
-        dataType: "json",
-        success: function(response) {
-            updateTimeScreen(response);
-        }
-    });
+    var getTime = function() {
+	$.ajax({
+            url: "time-json?" + 'lat=' + lat + '&lng=' + lng,
+            dataType: "json",
+            success: function(response) {
+		updateTimeScreen(response);
+            },
+	    error: function () {
+                setTimeout(function () {
+                    getTime();
+                }, 2000)
+            }
+	});
+    }
+
+    $('#local-time').empty();
+    $('#local-time').append('<p>Updating local time</p>');
+    getTime();
 
 }; // END updateTime
 // -------------------------------------------------------------------------------------------------
@@ -190,14 +198,15 @@ var updateTime = function(lat, lng) {
 var updateScreen = function(address) {
     // fields
     var city = address[0];
-    var lat = address[1];
-    var lon = address[2];
+    var country = address[1];
+    var lat = address[2];
+    var lon = address[3];
     
     // methods
     $('#city-input').val("Enter city name ...");
     $('#city-title').html(city);
     updateWiki(city);
-    updateNYT(city);
+    updateNYT(city + " " + country);
     updateWeather(lat, lon);
     updateTime(lat, lon);
     // Replace with Google maps
@@ -223,10 +232,17 @@ var validateCity = function(userInput) {
 		if (addressComp[0]['types'][0] == 'locality' && 
 		    addressComp[0]['types'][1] == 'political') {
 		    var geo = response['gmaps-json']['results'][0]['geometry'];
-		    var longName = addressComp[0]['long_name'];
+		    var city = addressComp[0]['long_name'];
+		    var country;
+		    // find country
+		    for (i = 0; i < addressComp.length; i++) {
+			if (addressComp[i]['types'][0] == 'country') {
+			    country = addressComp[i]['long_name'];
+			}
+		    }
 		    var lat = geo['location']['lat'];
 		    var lon = geo['location']['lng'];
-		    updateScreen([longName, lat, lon]);
+		    updateScreen([city, country, lat, lon]);
 		}
 		else {
 		    pageFail();
@@ -238,21 +254,25 @@ var validateCity = function(userInput) {
     })
 }; // END validateCity
 
-
+// generate random city
 var randomCity = function() {
-    var cityList = ['Seoul', 'Delhi', 'Shanghai',
-		    'Manila', 'New York', 'Sao Paulo', 'Mexico City', 'Cairo',
-		    'Beijing', 'Osaka', 'Mumbai', 'Guangzhou', 'Moscow',
-		    'Los Angeles', 'Calcutta', 'Dhaka', 'Buenos Aires', 'Istanbul',
-		    'Rio de Janeiro', 'Shenzhen', 'Paris', 'Nagoya',
-		    'Lima', 'Chicago', 'Kinshasa', 'Tianjin', 'Chennai'];
+    var getRandom = function() {
+	$.ajax({
+	    url: "random-city",
+	    dataType: "json",
+	    async: "false",
+	    success: function(response) {
+		validateCity(response['random-city']);
+	    }
+	});
+    }
+    getRandom();
 
-    cityList.sort(function() { return 0.5 - Math.random() }); // random shuffle
-    validateCity(cityList[0]);
-    /*testing
+    // testing only
+    /*
     var i = 0;
     setInterval(function(){
-	validateCity(cityList[i]);
+	getRandom();
 	i++;
     }, 3000);
     */
@@ -270,6 +290,12 @@ $(function() {
     // random city selection
     $('#random-button').on('click', function() {
 	randomCity();
+    });
+
+    // refresh city
+    $('#refresh-button').on('click', function() {
+	var currentCity = $('#city-title').html();
+	validateCity(currentCity);
     });
 
     // start with random city
