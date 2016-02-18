@@ -127,18 +127,26 @@ var updateNYT = function(city) {
 
 
 // updateWeather updates #weather-group with weather data
-var updateWeather = function(lat, lon) {
+var updateWeather = function(lat, lon, unit) {
     // update screen using resource
     var updateWeatherScreen = function(response) {
 	$('#weather-group').empty();
 	var days = response['list']
+	var unitSign = '&degF'
 	for (i = 0; i < days.length; i++) {
 	    var temp = String(days[i]['temp']['day']);
+	    if (unit == 'C') {
+		temp = (temp - 32) * 5 / 9;
+		unitSign = '&degC'
+	    }
 	    var temp0dp = Math.round(temp);
 	    var date = unixDate(days[i]['dt']);
-	    $('#weather-group').append('<button type="button" class="btn btn-primary">' + 
+	    var description = days[i]['weather'][0]['main'];
+	    $('#weather-group').append('<button type="button" class="btn btn-primary" ' +
+				       'id="weather-button">' + 
 				       date.getMonth() + ' / '  + date.getDate() + '</br>' +
-				       temp0dp  + '&degF</button>');
+				       temp0dp  + unitSign + '</br>' +
+				       description + '</button>');
 	}
     };
 
@@ -203,12 +211,12 @@ var updateTime = function(lat, lng) {
 
 
 // runs if user input is valid to update screen components
-var updateScreen = function(address) {
+var updateScreen = function() {
     // fields
-    var city = address[0];
-    var country = address[1];
-    var lat = address[2];
-    var lon = address[3];
+    var city = currentCity.city;
+    var country = currentCity.country;
+    var lat = currentCity.lat;
+    var lon = currentCity.lon;
     
     // methods
     $('#city-input').val("");
@@ -216,7 +224,7 @@ var updateScreen = function(address) {
     $('#city-title').html(city);
     updateWiki(city);
     updateNYT(city + " " + country);
-    updateWeather(lat, lon);
+    updateWeather(lat, lon, 'F');
     updateTime(lat, lon);
     // Replace with Google maps
     $('#google-img').attr('src', 'http://maps.googleapis.com/maps/api/streetview?' + 
@@ -228,6 +236,14 @@ var updateScreen = function(address) {
 var pageFail = function() {
     $('#city-input').val("INVALID INPUT");
 };
+
+// contains currenly city details
+var currentCity = function(ci, co, la, lo) {
+    this.city = ci;
+    this.country = co;
+    this.lat = la;
+    this.lon = lo;
+}
 
 // validate userInput using Google Maps
 var validateCity = function(userInput) {
@@ -241,17 +257,18 @@ var validateCity = function(userInput) {
 		if (addressComp[0]['types'][0] == 'locality' && 
 		    addressComp[0]['types'][1] == 'political') {
 		    var geo = response['gmaps-json']['results'][0]['geometry'];
-		    var city = addressComp[0]['long_name'];
-		    var country;
+		    currentCity.city = addressComp[0]['long_name'];
 		    // find country
 		    for (i = 0; i < addressComp.length; i++) {
 			if (addressComp[i]['types'][0] == 'country') {
-			    country = addressComp[i]['long_name'];
+			    currentCity.country = addressComp[i]['long_name'];
 			}
 		    }
-		    var lat = geo['location']['lat'];
-		    var lon = geo['location']['lng'];
-		    updateScreen([city, country, lat, lon]);
+		    currentCity.lat = geo['location']['lat'];
+		    currentCity.lon = geo['location']['lng'];
+		    
+		    // update screen components
+		    updateScreen();
 		}
 		else {
 		    pageFail();
@@ -305,6 +322,16 @@ $(function() {
     $('#refresh-button').on('click', function() {
 	var currentCity = $('#city-title').html();
 	validateCity(currentCity);
+    });
+
+    // weather to deg C
+    $('#degC-button').on('click', function() {
+	updateWeather(currentCity.lat, currentCity.lon, 'C');
+    });
+
+     // weather to deg C
+    $('#degF-button').on('click', function() {
+	updateWeather(currentCity.lat, currentCity.lon, 'F');
     });
 
     // start with random city
