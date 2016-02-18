@@ -16,13 +16,9 @@
     max-width: 100%;
 }
 
-.jumbotron p {
-    font-size: 16px;
-}
-
 @media (min-width: 767px) {
     #search-group {
-	max-width: 50%;
+	max-width: 70%;
     }
 }
 
@@ -41,4 +37,8 @@
 
 .panel-heading > h4 {
     line-height: 100%;
+}
+
+.jumbotron p {
+    font-size: 16px;
 }
