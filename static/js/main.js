@@ -9,13 +9,6 @@
 var updateWiki = function(city) {
     var city = city;
 
-    // handling unusual cases, manual update
-    switch(city) {
-    case 'New York':
-        city = "New York City"
-        break;
-    }
-
     // update screen using resource
     var updateWikiScreen = function(response) {
 	$('#wiki-accordion').empty();
@@ -37,10 +30,6 @@ var updateWiki = function(city) {
 					    '" class="panel-collapse collapse' + collapse  + '">' +
 					    '<div class="panel-body"><p>' +
 					    contents + '</p></div></div></div>');
-		// update city description in jumbotron
-		if (i == 0) {
-		    $('#city-description').append('<p>' + contents + '</p>');
-		}
 	    }
 	}
 	else {
@@ -68,6 +57,34 @@ var updateWiki = function(city) {
     });
 }; // END updateWiki
 // -------------------------------------------------------------------------------------------------
+
+
+
+
+
+// -------------------------------------------------------------------------------------------------
+
+// given the city name, update description in jumbotron
+var updateCityDescription = function(city) {
+    $('#city-description').empty();
+
+    // Make a request for the description.
+   $.ajax({
+       url: "city-description?" + 'city=' + city,
+       dataType: "json",
+       success: function(response) {
+	   var contents = response['text'] + '<a href="' + 
+	       response['url'] + '" target="_blank"> [details]</a>';
+	   $('#city-description').append('<p>' + contents + '</p>');
+       },
+       error: function () {
+           $('#city-description').append('<p>No city description available</p>');
+       }
+   });
+	
+}; // END cityDescription
+// -------------------------------------------------------------------------------------------------
+
 
 
 
@@ -167,13 +184,8 @@ var updateWeather = function(lat, lon, unit) {
 }; // END updateWeather
 
 
-// convert unix date to date object
-var unixDate = function(seconds) {
-    var date = new Date(seconds * 1000);
-    return date;
-}
-
 // -------------------------------------------------------------------------------------------------
+
 
 // given the latitude and longitude, update the "local time" display
 var updateTime = function(lat, lng) {
@@ -210,7 +222,10 @@ var updateTime = function(lat, lng) {
     getTime();
 
 }; // END updateTime
-// -------------------------------------------------------------------------------------------------
+
+
+
+// helper functions --------------------------------------------------------------------------------------
 
 
 // runs if user input is valid to update screen components
@@ -223,6 +238,7 @@ var updateScreen = function(city) {
     $('#city-input').attr('placeholder', city.name);
     $('#city-title').html(city.name);
     updateWiki(city.name);
+    updateCityDescription(city.name);
     updateNYT(city.name + " " + city.country);
     updateWeather(lat, lon, 'F');
     updateTime(lat, lon);
@@ -231,6 +247,18 @@ var updateScreen = function(city) {
 	'size=600x400&location=' + city.name);
     
 };
+
+
+
+
+// convert unix date to date object
+var unixDate = function(seconds) {
+    var date = new Date(seconds * 1000);
+    return date;
+}
+
+// -------------------------------------------------------------------------------------------------
+
 
 // run if user input is invalid
 var pageFail = function() {

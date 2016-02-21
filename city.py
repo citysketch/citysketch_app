@@ -88,7 +88,7 @@ class City:
             return None
 
         address_components = city_json['address_components']
-        city_name = address_components[0]['short_name']
+        city_name = address_components[0]['long_name']
 
         country_name = None
         for c in address_components:

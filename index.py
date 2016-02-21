@@ -14,6 +14,7 @@ from city import City
 from city_types import Location
 import external
 import valid_cities
+import city_desc
 
 # variables
 app = Flask(__name__)
@@ -79,13 +80,21 @@ def time_json():
 # verify city using googleapis
 @app.route('/random-city')
 def random_city():
-  return jsonify({'random-city': random.choice(valid_cities.cityList)})
+  return jsonify({'random-city': random.choice(valid_cities.tested_list)})
 
 
 # verify city using googleapis
 @app.route('/autocomplete')
 def autocomplete():
-  return json.dumps(valid_cities.cityList)
+  return json.dumps(valid_cities.autocomplete_list())
+
+
+# return city description json
+@app.route('/city-description', methods=['GET'])
+def city_description():
+    city = request.args.get('city')
+    response = city_desc._get(city)
+    return json.dumps(response)
 
 
 if __name__ == '__main__':
