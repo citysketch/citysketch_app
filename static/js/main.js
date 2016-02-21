@@ -311,7 +311,6 @@ var populateAutocomplete = function() {
 	url: "autocomplete",
 	dataType: "json",
 	success: function(response) {
-	    console.log(response);
 	    $('#city-input').autocomplete({
 		lookup: response,
 		onSelect: function (suggestion) {
