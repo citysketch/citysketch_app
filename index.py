@@ -13,7 +13,6 @@ from city import City
 from city_types import Location
 import external
 
-
 # variables
 app = Flask(__name__)
 
@@ -79,6 +78,11 @@ def time_json():
 @app.route('/random-city')
 def random_city():
   return jsonify({'random-city': random.choice(cityList)})
+
+# verify city using googleapis
+#@app.route('/weather-icon/<condition>')
+#def random_city():
+#  return jsonify({'random-city': random.choice(cityList)})
 
 
 # list of tested cities

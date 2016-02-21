@@ -211,24 +211,21 @@ var updateTime = function(lat, lng) {
 
 
 // runs if user input is valid to update screen components
-var updateScreen = function() {
-    // fields
-    var city = currentCity.city;
-    var country = currentCity.country;
-    var lat = currentCity.lat;
-    var lon = currentCity.lon;
+var updateScreen = function(city) {
+    var lat = city.loc['lat'];
+    var lon = city.loc['lng'];
     
     // methods
     $('#city-input').val("");
-    $('#city-input').attr('placeholder', city);
-    $('#city-title').html(city);
-    updateWiki(city);
-    updateNYT(city + " " + country);
+    $('#city-input').attr('placeholder', city.name);
+    $('#city-title').html(city.name);
+    updateWiki(city.name);
+    updateNYT(city.name + " " + city.country);
     updateWeather(lat, lon, 'F');
     updateTime(lat, lon);
     // Replace with Google maps
     $('#google-img').attr('src', 'http://maps.googleapis.com/maps/api/streetview?' + 
-	'size=600x400&location=' + city);
+	'size=600x400&location=' + city.name);
     
 };
 
@@ -239,12 +236,22 @@ var pageFail = function() {
 };
 
 // contains currenly city details
-var currentCity = function(ci, co, la, lo) {
-    this.city = ci;
+//var currentCity = new Object();
+
+var City = function(ci, co, loc) {
+    this.name = ci;
     this.country = co;
-    this.lat = la;
-    this.lon = lo;
+    this.loc = loc;
 }
+
+// Create a City object from a city JSON object received from the backend
+var city_from_json = function(city_json) {
+    var geo = city_json['location'];
+    return new City(city_json['name'],
+                    city_json['country'],
+                    city_json['location']);
+}
+
 
 // validate userInput using Google Maps
 var validateCity = function(userInput) {
@@ -253,31 +260,15 @@ var validateCity = function(userInput) {
 	dataType: "json",
 	async: "false",
 	success: function(response) {
-	    if (response['gmaps-json']['status'] != 'ZERO_RESULTS') {
-		var addressComp = response['gmaps-json']['results'][0]['address_components'];
-		if (addressComp[0]['types'][0] == 'locality' && 
-		    addressComp[0]['types'][1] == 'political') {
-		    var geo = response['gmaps-json']['results'][0]['geometry'];
-		    currentCity.city = addressComp[0]['long_name'];
-		    // find country
-		    for (i = 0; i < addressComp.length; i++) {
-			if (addressComp[i]['types'][0] == 'country') {
-			    currentCity.country = addressComp[i]['long_name'];
-			}
-		    }
-		    currentCity.lat = geo['location']['lat'];
-		    currentCity.lon = geo['location']['lng'];
-		    
-		    // update screen components
-		    updateScreen();
-		}
-		else {
-		    pageFail();
-		}}
-	    else {
-		pageFail();
-	    }
-	},
+        var city_json = response['gmaps-json'];
+
+	    if (city_json == 'none') {
+            pageFail();
+        } else {
+            var city = city_from_json(city_json);
+            updateScreen(city);
+        }
+    },
 	error: function(jqXHR, textStatus, errorThrown) {
 	    pageFail();
         }
@@ -298,14 +289,14 @@ var randomCity = function() {
     }
     getRandom();
 
-    // testing only
+    // testing only ///////////////////////////////
     /*
     var i = 0;
     setInterval(function(){
 	getRandom();
 	i++;
     }, 3000);
-    */
+    *//////////////////////////////////////////////
 }
 
 

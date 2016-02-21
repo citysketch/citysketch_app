@@ -146,6 +146,8 @@ var updateWeather = function(lat, lon, unit) {
 				       'id="weather-button">' + 
 				       date.getMonth() + ' / '  + date.getDate() + '</br>' +
 				       temp0dp  + unitSign + '</br>' +
+				       '<img src="static/img/weather_conditions/' + 
+				       description + '.png' + '"></br>' + 
 				       description + '</button>');
 	}
     };
@@ -235,14 +237,16 @@ var pageFail = function() {
     $('#city-input').attr('placeholder', "INVALID INPUT");
 };
 
-// contains currenly city details
-//var currentCity = new Object();
 
+// Generic city class
 var City = function(ci, co, loc) {
     this.name = ci;
     this.country = co;
     this.loc = loc;
 }
+
+// contains currenly city details
+var currentCity;
 
 // Create a City object from a city JSON object received from the backend
 var city_from_json = function(city_json) {
@@ -265,8 +269,8 @@ var validateCity = function(userInput) {
 	    if (city_json == 'none') {
             pageFail();
         } else {
-            var city = city_from_json(city_json);
-            updateScreen(city);
+            currentCity = city_from_json(city_json);
+            updateScreen(currentCity);
         }
     },
 	error: function(jqXHR, textStatus, errorThrown) {
@@ -330,12 +334,12 @@ $(function() {
 
     // weather to deg C
     $('#degC-button').on('click', function() {
-	updateWeather(currentCity.lat, currentCity.lon, 'C');
+	updateWeather(currentCity.loc['lat'], currentCity.loc['lng'], 'C');
     });
 
      // weather to deg C
     $('#degF-button').on('click', function() {
-	updateWeather(currentCity.lat, currentCity.lon, 'F');
+	updateWeather(currentCity.loc['lat'], currentCity.loc['lng'], 'F');
     });
 
     // start with random city

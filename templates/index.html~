@@ -14,13 +14,16 @@
     
     <div>
     <h2 id="city-title"></h2>
-    <button class="btn btn-info" type="button" id="refresh-button">
-      Refresh</button>
+    
     </div>
 
     <h4>Local time</h4>
     <div id="local-time"></div>
-    <h4>Weather forecast</h4>
+    <h4>Weather forecast
+      <button class="label label-info" id="degF-button">&degF</button>
+      <button class="label label-info" id="degC-button">&degC</button>
+    </h4>
+    
     <div class="btn-group" id="weather-group">
     </div>
     <h4>Overview</h4>

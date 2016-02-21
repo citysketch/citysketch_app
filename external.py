@@ -1,3 +1,6 @@
+# Filename: index.py
+# Author: Craig Roche
+
 import requests
 
 from city_types import Location, LocalTime
