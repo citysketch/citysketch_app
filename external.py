@@ -76,13 +76,13 @@ def _gmaps_lookup_city(query):
     if not results:
         return None
 
-    city = results[0]
-
-    address_types = city['address_components'][0]['types']
-
-    # the result was not of the right type
-    if address_types[0] != 'locality' or address_types[1] != 'political':
-        return None
+    # restrict results to the first city
+    city = None
+    for i in range(0, 1): # change '1' to iterate for more results
+        thisCity = results[i]
+        address_types = thisCity['address_components'][0]['types']
+        if address_types[0] == 'locality' or address_types[1] == 'political':
+            city = thisCity
 
     # return the first result
     return city
@@ -166,5 +166,3 @@ def _lookup_time(location):
     local_time = time.gmtime(timestamp)
 
     return LocalTime(local_time, response['abbreviation'], response['zoneName'])
-
-

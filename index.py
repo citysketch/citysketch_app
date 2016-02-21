@@ -80,13 +80,13 @@ def time_json():
 # verify city using googleapis
 @app.route('/random-city')
 def random_city():
-  return jsonify({'random-city': random.choice(valid_cities.cityList)})
+  return jsonify({'random-city': random.choice(valid_cities.tested_list)})
 
 
 # verify city using googleapis
 @app.route('/autocomplete')
 def autocomplete():
-  return json.dumps(valid_cities.cityList)
+  return json.dumps(valid_cities.autocomplete_list())
 
 
 # return city description json
