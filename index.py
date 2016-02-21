@@ -82,6 +82,11 @@ def random_city():
   return jsonify({'random-city': random.choice(valid_cities.cityList)})
 
 
+# verify city using googleapis
+@app.route('/autocomplete')
+def autocomplete():
+  return json.dumps(valid_cities.cityList)
+
 
 if __name__ == '__main__':
   app.debug = True # used for dev only

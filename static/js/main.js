@@ -305,6 +305,24 @@ var randomCity = function() {
 }
 
 
+// START populateAutocomplete: autocomplete options
+var populateAutocomplete = function() {
+    $.ajax({
+	url: "autocomplete",
+	dataType: "json",
+	success: function(response) {
+	    console.log(response);
+	    $('#city-input').autocomplete({
+		lookup: response,
+		onSelect: function (suggestion) {
+		    validateCity(suggestion.value);
+		}
+	    });
+	}
+    });
+}; // END populateAutocomplete
+
+
 // Use the browser's built-in functionality to quickly and safely escape the
 // string
 function escapeHtml(str) {
@@ -316,6 +334,9 @@ function escapeHtml(str) {
 
 // run on load of site
 $(function() {
+    // autocomplete
+    populateAutocomplete();
+
     // user search
     $('#search-button').on('click', function() {
 	var userInput = escapeHtml($('#city-input').val());
