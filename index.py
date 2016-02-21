@@ -9,6 +9,11 @@ from flask import Flask, render_template, request
 from flask import redirect
 from flask import jsonify, json
 
+from city import City
+from city_types import Location
+import external
+
+
 # variables
 app = Flask(__name__)
 
@@ -20,76 +25,54 @@ def show_index():
 # verify city using googleapis
 @app.route('/gmaps-json', methods=['GET'])
 def gmaps_json():
-  city = request.args.get('city')
-  try:
-    gmaps = requests.get('http://maps.googleapis.com/maps/api/geocode/json?address=' + \
-                         city  + '&sensor=true').json()
-  except e:
-    return jsonify({'gmaps-json': '0'})
-  return jsonify({'gmaps-json': gmaps})
+    city_query = request.args.get('city')
+    city = City.lookup(city_query)
+
+    if city is None:
+        return jsonify({'gmaps-json': 'none'})
+    else:
+        return jsonify({'gmaps-json': city.to_json()})
 
 # return weather json
 @app.route('/weather-json', methods=['GET'])
 def weather_json():
-  lat = request.args.get('lat')
-  lon = request.args.get('lon')
-  weather = requests.get('http://api.openweathermap.org/data/2.5/forecast/daily?' + 
-                      'lat=' + lat + '&lon=' + lon + '&cnt=16&units=imperial&APPID=' + 
-                      'ef49a278b6557235d3372d9c5416d4f6').json()
-  return jsonify({'weather-json': weather})
+    lat = request.args.get('lat')
+    lon = request.args.get('lon')
+    location = Location(lat,lon)
+
+    result = external._lookup_weather(location)
+    return jsonify({'weather-json': result})
 
 # return Wiki json
 @app.route('/wiki-json', methods=['GET'])
 def wiki_json():
-  city = request.args.get('city')
-  wiki = requests.get('https://en.wikipedia.org/w/api.php?action=' + \
-                      'opensearch&search=' + city  + '&format=json').json()
-  return jsonify({'wiki-json': wiki})
+    city_name = request.args.get('city')
+
+    result = external._lookup_wikipedia(city_name)
+    return jsonify({'wiki-json': result})
 
 # return NYT json
 @app.route('/nyt-json', methods=['GET'])
 def nyt_json():
-  city = request.args.get('city')
-  key = '532e9278d93c9c359096abdbbf5d65fd:14:74311752';
-  nyt = requests.get('http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + \
-                      city + '&sort=newest&api-key=' + key).json()
-  return jsonify({'nyt-json': nyt})
+    city_name = request.args.get('city')
+
+    result = external._lookup_nyt(city_name)
+    return jsonify({'nyt-json': result})
 
 # return current time json
 @app.route('/time-json', methods=['GET'])
 def time_json():
-    import time
-
-    # read latitude and longitude parameters
     lat = request.args.get('lat')
     lng = request.args.get('lng')
+    location = Location(lat,lng)
+    
+    local_time = external._lookup_time(location)
 
-    TIMEZONE_DB_KEY = 'RI1ZCW7725DU'
-
-    url = 'http://api.timezonedb.com/'
-    params = {
-      'lat': lat,
-      'lng': lng,
-      'format': 'json',
-      'key': TIMEZONE_DB_KEY,
-    }
-
-    response = requests.get(url, params=params).json()
-    if response['status'] == "OK":
-      # compute local time at given coordinates
-      timestamp = float(response['timestamp'])
-      local_time = time.gmtime(timestamp)
-
-
-      # format time as <hour>:<minute> <AM/PM>
-      time_string = time.strftime('%I:%M %p', local_time)
-
-      return jsonify({
-        'time':      time_string,
-        'timestamp': timestamp,
-        'zone_abbr': response['abbreviation'],
-        'zone_name': response['zoneName']
-      })
+    return jsonify({
+        'time':      local_time.as_string(),
+        'zone_abbr': local_time.zone_abbr,
+        'zone_name': local_time.zone_name,
+    })
 
 
 # verify city using googleapis
