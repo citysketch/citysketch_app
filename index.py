@@ -9,9 +9,11 @@ from flask import Flask, render_template, request
 from flask import redirect
 from flask import jsonify, json
 
+# custom imports
 from city import City
 from city_types import Location
 import external
+import valid_cities
 
 # variables
 app = Flask(__name__)
@@ -77,21 +79,7 @@ def time_json():
 # verify city using googleapis
 @app.route('/random-city')
 def random_city():
-  return jsonify({'random-city': random.choice(cityList)})
-
-# verify city using googleapis
-#@app.route('/weather-icon/<condition>')
-#def random_city():
-#  return jsonify({'random-city': random.choice(cityList)})
-
-
-# list of tested cities
-cityList = ['Seoul', 'Delhi', 'Shanghai',
-            'Manila', 'New York', 'Sao Paulo', 'Mexico City', 'Cairo',
-            'Beijing', 'Osaka', 'Mumbai', 'Guangzhou', 'Moscow',
-            'Los Angeles', 'Calcutta', 'Dhaka', 'Buenos Aires', 'Istanbul',
-            'Rio de Janeiro', 'Shenzhen', 'Paris', 'Nagoya',
-            'Lima', 'Chicago', 'Kinshasa', 'Tianjin', 'Chennai']
+  return jsonify({'random-city': random.choice(valid_cities.cityList)})
 
 
 

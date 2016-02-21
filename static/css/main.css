@@ -16,7 +16,7 @@
     max-width: 100%;
 }
 
-#weather-button {
+.weather-button {
     font-size: 14px;
     font-weight: none;
     padding-left: 8px;

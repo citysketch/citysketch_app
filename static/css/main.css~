@@ -16,12 +16,25 @@
     max-width: 100%;
 }
 
+#weather-button {
+    font-size: 14px;
+    font-weight: none;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+
+#search-button, #refresh-button, #random-buttom {
+    width: 100px;
+}
+
 @media (min-width: 767px) {
     #search-group {
 	max-width: 70%;
     }
 }
-
 
 
 /* updates to bootstrap */

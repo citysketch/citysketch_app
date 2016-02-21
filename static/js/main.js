@@ -142,12 +142,13 @@ var updateWeather = function(lat, lon, unit) {
 	    var temp0dp = Math.round(temp);
 	    var date = unixDate(days[i]['dt']);
 	    var description = days[i]['weather'][0]['main'];
-	    $('#weather-group').append('<button type="button" class="btn btn-primary" ' +
-				       'id="weather-button">' + 
+	    var buttonID = "weather-button-" + i;
+	    var background = "static/img/weather_conditions/" + description + ".png";
+	    $('#weather-group').append('<button type="button" class="btn btn-primary weather-button" ' +
+				       'id=' + buttonID + '">' + 
 				       date.getMonth() + ' / '  + date.getDate() + '</br>' +
 				       temp0dp  + unitSign + '</br>' +
-				       '<img src="static/img/weather_conditions/' + 
-				       description + '.png' + '"></br>' + 
+				       '<img src="' + background  + '"></br>' + 
 				       description + '</button>');
 	}
     };
