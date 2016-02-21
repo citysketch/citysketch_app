@@ -14,6 +14,7 @@ from city import City
 from city_types import Location
 import external
 import valid_cities
+import city_desc
 
 # variables
 app = Flask(__name__)
@@ -86,6 +87,14 @@ def random_city():
 @app.route('/autocomplete')
 def autocomplete():
   return json.dumps(valid_cities.cityList)
+
+
+# return city description json
+@app.route('/city-description', methods=['GET'])
+def city_description():
+    city = request.args.get('city')
+    response = city_desc._get(city)
+    return json.dumps(response)
 
 
 if __name__ == '__main__':
