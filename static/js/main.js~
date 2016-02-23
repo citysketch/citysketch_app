@@ -236,7 +236,7 @@ var updateScreen = function(city) {
     // methods
     $('#city-input').val("");
     $('#city-input').attr('placeholder', city.name);
-    $('#city-title').html(city.name);
+    $('#city-title').html(city.name + " (" + city.country + ")");
     updateWiki(city.name);
     updateCityDescription(city.name);
     updateNYT(city.name + " " + city.country);
@@ -259,14 +259,6 @@ var unixDate = function(seconds) {
 
 // -------------------------------------------------------------------------------------------------
 
-
-// run if user input is invalid
-var pageFail = function() {
-    $('#city-input').val("");
-    $('#city-input').attr('placeholder', "INVALID INPUT");
-};
-
-
 // Generic city class
 var City = function(ci, co, loc) {
     this.name = ci;
@@ -274,15 +266,25 @@ var City = function(ci, co, loc) {
     this.loc = loc;
 }
 
-// contains currenly city details
+// contains currenly city details initialized as City class
 var currentCity;
+
+// --------------------------------------------------------------------------------------------------
+
+
+// run if user input is invalid
+var pageFail = function() {
+    $('#city-input').val("");
+    $('#city-input').attr('placeholder', "INVALID INPUT");
+};
 
 // Create a City object from a city JSON object received from the backend
 var city_from_json = function(city_json) {
     var geo = city_json['location'];
-    return new City(city_json['name'],
-                    city_json['country'],
-                    city_json['location']);
+    currentCity = new City(city_json['name'],
+			   city_json['country'],
+			   city_json['location']);
+    return currentCity;
 }
 
 
@@ -294,7 +296,6 @@ var validateCity = function(userInput) {
 	async: "false",
 	success: function(response) {
         var city_json = response['gmaps-json'];
-
 	    if (city_json == 'none') {
             pageFail();
         } else {
@@ -377,8 +378,7 @@ $(function() {
 
     // refresh city
     $('#refresh-button').on('click', function() {
-	var currentCity = $('#city-title').html();
-	validateCity(currentCity);
+	validateCity(currentCity.name);
     });
 
     // weather to deg C

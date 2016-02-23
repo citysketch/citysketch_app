@@ -169,6 +169,7 @@ def _lookup_time(location):
     return LocalTime(local_time, response['abbreviation'], response['zoneName'])
 
 
+
 """
 Use twitter API and oauth2 authetication to obtain twitter search results
 """
@@ -190,6 +191,7 @@ def oauth_req(url, key, secret, http_method="GET", post_body="", http_headers=No
     resp, content = client.request( url, method=http_method, body=post_body, headers=http_headers )
     parsed_twitter = parse_twitter(json.loads(content))
     return parsed_twitter
+    #return json.loads(content) #returns full json content
 
 # parse contents for required results only
 def parse_twitter(raw):

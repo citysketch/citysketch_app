@@ -4,6 +4,21 @@
  * Purpose: Loads jQuery main function once all other resources are loaded
 */
 
+// ------------------------------------------------------------------------
+// Variables
+
+// Generic city class
+var City = function(ci, co, loc) {
+    this.name = ci;
+    this.country = co;
+    this.loc = loc;
+}
+
+// contains currenly city details initialized as City class
+var currentCity;
+
+// ------------------------------------------------------------------------
+
 
 // updateWiki updates #wiki-accordion with wiki search articles
 var updateWiki = function(city) {
@@ -85,6 +100,43 @@ var updateCityDescription = function(city) {
 }; // END cityDescription
 // -------------------------------------------------------------------------------------------------
 
+
+// -------------------------------------------------------------------------------------------------
+
+// Update twitter feed
+var updateTwitter = function(city) {
+    $('#twitter-content').empty();
+
+    // Make a request for the description.
+   $.ajax({
+       url: "twitter-json?" + 'city=' + city,
+       dataType: "json",
+       success: function(response) {
+	   var tweets = response['twitter-json']
+	   for (i = 0; i < tweets.length; i++) {
+	       //console.log(tweets[i]); ////////////////////////////////////////////////////////
+	       var hashtag = "";
+	       try {
+		   for (j = 0; j < tweets[i][2].length; j++) {
+		       hashtag += "#" + tweets[i][2]['hashtags'][j] + " ";
+		   }
+	       }
+	       catch(e) {}
+	       // to do try image
+	       var item = "<p>time:" + tweets[i][0]['date'] + ". text: " +
+		   tweets[i][1]['text'] + " " + hashtag + "</p>";
+	       $('#twitter-content').append(item);
+	       $('#twitter-content').append('<hr>');
+	       console.log(item); //////////////////////////////////////////////////////////////
+	   }
+       },
+       error: function () {
+           $('#twitter-content').append('<p>No city description available</p>');
+       }
+   });
+	
+}; // END updateTwitter
+// -------------------------------------------------------------------------------------------------
 
 
 
@@ -237,11 +289,14 @@ var updateScreen = function(city) {
     $('#city-input').val("");
     $('#city-input').attr('placeholder', city.name);
     $('#city-title').html(city.name + " (" + city.country + ")");
+    
     updateWiki(city.name);
     updateCityDescription(city.name);
+    updateTime(lat, lon);
+    updateTwitter(city.name);
     updateNYT(city.name + " " + city.country);
     updateWeather(lat, lon, 'F');
-    updateTime(lat, lon);
+ 
     // Replace with Google maps
     $('#google-img').attr('src', 'http://maps.googleapis.com/maps/api/streetview?' + 
 	'size=600x400&location=' + city.name);
@@ -249,27 +304,11 @@ var updateScreen = function(city) {
 };
 
 
-
-
 // convert unix date to date object
 var unixDate = function(seconds) {
     var date = new Date(seconds * 1000);
     return date;
 }
-
-// -------------------------------------------------------------------------------------------------
-
-// Generic city class
-var City = function(ci, co, loc) {
-    this.name = ci;
-    this.country = co;
-    this.loc = loc;
-}
-
-// contains currenly city details initialized as City class
-var currentCity;
-
-// --------------------------------------------------------------------------------------------------
 
 
 // run if user input is invalid
