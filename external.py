@@ -2,7 +2,8 @@
 # Author: Craig Roche
 
 import requests
-
+import oauth2
+import json
 from city_types import Location, LocalTime
 
 
@@ -166,3 +167,45 @@ def _lookup_time(location):
     local_time = time.gmtime(timestamp)
 
     return LocalTime(local_time, response['abbreviation'], response['zoneName'])
+
+
+"""
+Use twitter API and oauth2 authetication to obtain twitter search results
+"""
+def _lookup_twitter(city):
+    query = city
+    count = '30'
+    url = 'https://api.twitter.com/1.1/search/tweets.json?q=%23' + query + '&count=' + count
+    key = '4898127648-hImwrcGlSCMqYvKIFl5BCZXAZAWunJ7FAtsrHYO'
+    secret = 'BcvtY6dYTlzFboKjQXtfaQYGHNZrZSJebzA3FzQVdXSiq'
+    return oauth_req(url, key, secret)
+
+# authenticate and obtain contents
+def oauth_req(url, key, secret, http_method="GET", post_body="", http_headers=None):
+    CONSUMER_KEY = 'I9CBjfoBWNLZTF71hCzo1j9XT'
+    CONSUMER_SECRET = 'GGmjnZRHHUD52AdeGVD5qPr5CxibJbn6Xiq7JONi1ydzTREuCh'
+    consumer = oauth2.Consumer(key=CONSUMER_KEY, secret=CONSUMER_SECRET)
+    token = oauth2.Token(key=key, secret=secret)
+    client = oauth2.Client(consumer, token)
+    resp, content = client.request( url, method=http_method, body=post_body, headers=http_headers )
+    parsed_twitter = parse_twitter(json.loads(content))
+    return parsed_twitter
+
+# parse contents for required results only
+def parse_twitter(raw):
+    response = []
+    for tweet in raw['statuses']:
+        selection = []
+        selection.append({'date': tweet['created_at']})
+        selection.append({'text': tweet['text']})
+        hashtags = []
+        for tag in tweet['entities']['hashtags']:
+            hashtags.append(tag['text'])
+        selection.append({'hashtags': hashtags})
+        try:
+            image_url = tweet['entities']['media'][0]['media_url']
+            selection.append({'image_url': image_url})
+        except:
+            pass
+        response.append(selection)
+    return response
