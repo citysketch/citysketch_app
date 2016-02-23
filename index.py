@@ -97,6 +97,15 @@ def city_description():
     return json.dumps(response)
 
 
+# return weather json
+@app.route('/twitter-json', methods=['GET'])
+def twitter_json():
+    city = request.args.get('city')
+    result = external._lookup_twitter(city)
+    return jsonify({'twitter-json': result})
+
+
+
 if __name__ == '__main__':
   app.debug = True # used for dev only
   host = '0.0.0.0'
