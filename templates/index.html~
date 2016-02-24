@@ -35,8 +35,8 @@
       <h3>Twitter</h3>
       <div class="panel panel-primary">
 	<div class="panel-heading">Latest update</div>
-	<div class="panel-body">
-	  Feed ...
+	<div class="panel-body" id="twitter-content">
+	  
 	</div>
       </div>
 

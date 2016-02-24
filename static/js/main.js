@@ -74,11 +74,6 @@ var updateWiki = function(city) {
 // -------------------------------------------------------------------------------------------------
 
 
-
-
-
-// -------------------------------------------------------------------------------------------------
-
 // given the city name, update description in jumbotron
 var updateCityDescription = function(city) {
     $('#city-description').empty();
@@ -101,33 +96,33 @@ var updateCityDescription = function(city) {
 // -------------------------------------------------------------------------------------------------
 
 
-// -------------------------------------------------------------------------------------------------
-
 // Update twitter feed
 var updateTwitter = function(city) {
     $('#twitter-content').empty();
-
+    $('#twitter-link').empty();
     // Make a request for the description.
    $.ajax({
        url: "twitter-json?" + 'city=' + city,
        dataType: "json",
        success: function(response) {
+	   $('#twitter-link').append('<a href="https://twitter.com/search?q=' + city + '" target="_blank">' +
+				     'Twitter ' + city + '</a>');
 	   var tweets = response['twitter-json']
 	   for (i = 0; i < tweets.length; i++) {
-	       //console.log(tweets[i]); ////////////////////////////////////////////////////////
-	       var hashtag = "";
+	       var date = new Date(tweets[i][0]['date'])
+	       // output item to be appended
+	       var item = '<p><span class="twitter-date">' + date.getMonth() + "/" + date.getDate() + 
+		   "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + "</span></br>" +
+		   tweets[i][1]['text'];
+		
+	       // append image, if exists
+	       $('#twitter-content').append(item);
 	       try {
-		   for (j = 0; j < tweets[i][2].length; j++) {
-		       hashtag += "#" + tweets[i][2]['hashtags'][j] + " ";
-		   }
+		   var imageUrl = tweets[i][3]['image_url'];
+		   $('#twitter-content').append('<img class="twitter-image" src="' + imageUrl + '">');
 	       }
 	       catch(e) {}
-	       // to do try image
-	       var item = "<p>time:" + tweets[i][0]['date'] + ". text: " +
-		   tweets[i][1]['text'] + " " + hashtag + "</p>";
-	       $('#twitter-content').append(item);
 	       $('#twitter-content').append('<hr>');
-	       console.log(item); //////////////////////////////////////////////////////////////
 	   }
        },
        error: function () {
