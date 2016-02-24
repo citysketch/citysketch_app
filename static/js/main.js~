@@ -4,6 +4,21 @@
  * Purpose: Loads jQuery main function once all other resources are loaded
 */
 
+// ------------------------------------------------------------------------
+// Variables
+
+// Generic city class
+var City = function(ci, co, loc) {
+    this.name = ci;
+    this.country = co;
+    this.loc = loc;
+}
+
+// contains currenly city details initialized as City class
+var currentCity;
+
+// ------------------------------------------------------------------------
+
 
 // updateWiki updates #wiki-accordion with wiki search articles
 var updateWiki = function(city) {
@@ -85,6 +100,43 @@ var updateCityDescription = function(city) {
 }; // END cityDescription
 // -------------------------------------------------------------------------------------------------
 
+
+// -------------------------------------------------------------------------------------------------
+
+// Update twitter feed
+var updateTwitter = function(city) {
+    $('#twitter-content').empty();
+
+    // Make a request for the description.
+   $.ajax({
+       url: "twitter-json?" + 'city=' + city,
+       dataType: "json",
+       success: function(response) {
+	   var tweets = response['twitter-json']
+	   for (i = 0; i < tweets.length; i++) {
+	       //console.log(tweets[i]); ////////////////////////////////////////////////////////
+	       var hashtag = "";
+	       try {
+		   for (j = 0; j < tweets[i][2].length; j++) {
+		       hashtag += "#" + tweets[i][2]['hashtags'][j] + " ";
+		   }
+	       }
+	       catch(e) {}
+	       // to do try image
+	       var item = "<p>time:" + tweets[i][0]['date'] + ". text: " +
+		   tweets[i][1]['text'] + " " + hashtag + "</p>";
+	       $('#twitter-content').append(item);
+	       $('#twitter-content').append('<hr>');
+	       console.log(item); //////////////////////////////////////////////////////////////
+	   }
+       },
+       error: function () {
+           $('#twitter-content').append('<p>No city description available</p>');
+       }
+   });
+	
+}; // END updateTwitter
+// -------------------------------------------------------------------------------------------------
 
 
 
@@ -236,19 +288,20 @@ var updateScreen = function(city) {
     // methods
     $('#city-input').val("");
     $('#city-input').attr('placeholder', city.name);
-    $('#city-title').html(city.name);
+    $('#city-title').html(city.name + " (" + city.country + ")");
+    
     updateWiki(city.name);
     updateCityDescription(city.name);
+    updateTime(lat, lon);
+    updateTwitter(city.name);
     updateNYT(city.name + " " + city.country);
     updateWeather(lat, lon, 'F');
-    updateTime(lat, lon);
+ 
     // Replace with Google maps
     $('#google-img').attr('src', 'http://maps.googleapis.com/maps/api/streetview?' + 
 	'size=600x400&location=' + city.name);
     
 };
-
-
 
 
 // convert unix date to date object
@@ -257,8 +310,6 @@ var unixDate = function(seconds) {
     return date;
 }
 
-// -------------------------------------------------------------------------------------------------
-
 
 // run if user input is invalid
 var pageFail = function() {
@@ -266,23 +317,13 @@ var pageFail = function() {
     $('#city-input').attr('placeholder', "INVALID INPUT");
 };
 
-
-// Generic city class
-var City = function(ci, co, loc) {
-    this.name = ci;
-    this.country = co;
-    this.loc = loc;
-}
-
-// contains currenly city details
-var currentCity;
-
 // Create a City object from a city JSON object received from the backend
 var city_from_json = function(city_json) {
     var geo = city_json['location'];
-    return new City(city_json['name'],
-                    city_json['country'],
-                    city_json['location']);
+    currentCity = new City(city_json['name'],
+			   city_json['country'],
+			   city_json['location']);
+    return currentCity;
 }
 
 
@@ -294,7 +335,6 @@ var validateCity = function(userInput) {
 	async: "false",
 	success: function(response) {
         var city_json = response['gmaps-json'];
-
 	    if (city_json == 'none') {
             pageFail();
         } else {
@@ -377,8 +417,7 @@ $(function() {
 
     // refresh city
     $('#refresh-button').on('click', function() {
-	var currentCity = $('#city-title').html();
-	validateCity(currentCity);
+	validateCity(currentCity.name);
     });
 
     // weather to deg C

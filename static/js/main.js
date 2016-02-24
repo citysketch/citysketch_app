@@ -4,6 +4,21 @@
  * Purpose: Loads jQuery main function once all other resources are loaded
 */
 
+// ------------------------------------------------------------------------
+// Variables
+
+// Generic city class
+var City = function(ci, co, loc) {
+    this.name = ci;
+    this.country = co;
+    this.loc = loc;
+}
+
+// contains currenly city details initialized as City class
+var currentCity;
+
+// ------------------------------------------------------------------------
+
 
 // updateWiki updates #wiki-accordion with wiki search articles
 var updateWiki = function(city) {
@@ -59,11 +74,6 @@ var updateWiki = function(city) {
 // -------------------------------------------------------------------------------------------------
 
 
-
-
-
-// -------------------------------------------------------------------------------------------------
-
 // given the city name, update description in jumbotron
 var updateCityDescription = function(city) {
     $('#city-description').empty();
@@ -85,6 +95,43 @@ var updateCityDescription = function(city) {
 }; // END cityDescription
 // -------------------------------------------------------------------------------------------------
 
+
+// Update twitter feed
+var updateTwitter = function(city) {
+    $('#twitter-content').empty();
+    $('#twitter-link').empty();
+    // Make a request for the description.
+   $.ajax({
+       url: "twitter-json?" + 'city=' + city,
+       dataType: "json",
+       success: function(response) {
+	   $('#twitter-link').append('<a href="https://twitter.com/search?q=' + city + '" target="_blank">' +
+				     'Twitter ' + city + '</a>');
+	   var tweets = response['twitter-json']
+	   for (i = 0; i < tweets.length; i++) {
+	       var date = new Date(tweets[i][0]['date'])
+	       // output item to be appended
+	       var item = '<p><span class="twitter-date">' + date.getMonth() + "/" + date.getDate() + 
+		   "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + "</span></br>" +
+		   tweets[i][1]['text'];
+		
+	       // append image, if exists
+	       $('#twitter-content').append(item);
+	       try {
+		   var imageUrl = tweets[i][3]['image_url'];
+		   $('#twitter-content').append('<img class="twitter-image" src="' + imageUrl + '">');
+	       }
+	       catch(e) {}
+	       $('#twitter-content').append('<hr>');
+	   }
+       },
+       error: function () {
+           $('#twitter-content').append('<p>No city description available</p>');
+       }
+   });
+	
+}; // END updateTwitter
+// -------------------------------------------------------------------------------------------------
 
 
 
@@ -237,11 +284,14 @@ var updateScreen = function(city) {
     $('#city-input').val("");
     $('#city-input').attr('placeholder', city.name);
     $('#city-title').html(city.name + " (" + city.country + ")");
+    
     updateWiki(city.name);
     updateCityDescription(city.name);
+    updateTime(lat, lon);
+    updateTwitter(city.name);
     updateNYT(city.name + " " + city.country);
     updateWeather(lat, lon, 'F');
-    updateTime(lat, lon);
+ 
     // Replace with Google maps
     $('#google-img').attr('src', 'http://maps.googleapis.com/maps/api/streetview?' + 
 	'size=600x400&location=' + city.name);
@@ -249,27 +299,11 @@ var updateScreen = function(city) {
 };
 
 
-
-
 // convert unix date to date object
 var unixDate = function(seconds) {
     var date = new Date(seconds * 1000);
     return date;
 }
-
-// -------------------------------------------------------------------------------------------------
-
-// Generic city class
-var City = function(ci, co, loc) {
-    this.name = ci;
-    this.country = co;
-    this.loc = loc;
-}
-
-// contains currenly city details initialized as City class
-var currentCity;
-
-// --------------------------------------------------------------------------------------------------
 
 
 // run if user input is invalid

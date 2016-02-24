@@ -3,6 +3,8 @@ import external
 """
 Use wiki articles to return a description of the city
 """
+select_second_article = ['New York']
+
 def _get(city_name):
     articles = external._lookup_wikipedia(city_name)
     # if 'New York' select second articles
@@ -18,14 +20,4 @@ def _get(city_name):
     response = {'title': title, 'text': text, 'url': url}
     return response
 
-select_second_article = ['New York']
 
-
-
-
-
-
-#### REMOVE IN PRODUCTION
-if __name__ == "__main__":
-    print(_get("New York"))
-#### REMOVE IN PRODUCTION
