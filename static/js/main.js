@@ -97,19 +97,24 @@ var updateCityDescription = function(city) {
     $('#city-description').empty();
 
     // Make a request for the description.
-   $.ajax({
-       url: "city-description?" + 'city=' + city,
-       dataType: "json",
-       success: function(response) {
-	   var contents = response['text'] + '<a href="' + 
-	       response['url'] + '" target="_blank"> [details]</a>';
-	   $('#city-description').append('<p>' + contents + '</p>');
-       },
-       error: function () {
-           $('#city-description').append('<p>No city description available</p>');
-       }
-   });
-	
+    var setText = function() {
+       $.ajax({
+	   url: "city-description?" + 'city=' + city,
+	   dataType: "json",
+	   success: function(response) {
+	       var contents = response['text'] + '<a href="' + 
+		   response['url'] + '" target="_blank"> [details]</a>';
+	       $('#city-description').append('<p>' + contents + '</p>');
+	   },
+	   error: function () {
+               setTimeout(function () {
+                   setText();
+               }, 1500)
+           }
+       });
+    };
+ 
+    setText();
 }; // END cityDescription
 // -------------------------------------------------------------------------------------------------
 
