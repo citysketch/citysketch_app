@@ -82,7 +82,7 @@ def _gmaps_lookup_city(query):
     for i in range(0, 1): # change '1' to iterate for more results
         thisCity = results[i]
         address_types = thisCity['address_components'][0]['types']
-        if address_types[0] == 'locality' or address_types[1] == 'political':
+        if address_types[0] == 'locality' and address_types[1] == 'political':
             city = thisCity
 
     # return the first result
@@ -175,7 +175,7 @@ Use twitter API and oauth2 authetication to obtain twitter search results
 """
 def _lookup_twitter(city):
     query = city
-    count = '30'
+    count = '100'
     url = 'https://api.twitter.com/1.1/search/tweets.json?q=%23' + query + '&count=' + count
     key = '4898127648-hImwrcGlSCMqYvKIFl5BCZXAZAWunJ7FAtsrHYO'
     secret = 'BcvtY6dYTlzFboKjQXtfaQYGHNZrZSJebzA3FzQVdXSiq'
@@ -195,19 +195,28 @@ def oauth_req(url, key, secret, http_method="GET", post_body="", http_headers=No
 
 # parse contents for required results only
 def parse_twitter(raw):
+    MAX_TWEETS = 30
+    count = 0
     response = []
     for tweet in raw['statuses']:
-        selection = []
-        selection.append({'date': tweet['created_at']})
-        selection.append({'text': tweet['text']})
-        hashtags = []
-        for tag in tweet['entities']['hashtags']:
-            hashtags.append(tag['text'])
-        selection.append({'hashtags': hashtags})
         try:
-            image_url = tweet['entities']['media'][0]['media_url']
-            selection.append({'image_url': image_url})
+            # only return <30 english tweets with no sensitive content 
+            if (tweet['lang'] == 'en') and \
+               count < MAX_TWEETS and tweet['possibly_sensitive'] == False:
+                count += 1
+                selection = []
+                selection.append({'date': tweet['created_at']})
+                selection.append({'text': tweet['text']})
+                hashtags = []
+                for tag in tweet['entities']['hashtags']:
+                    hashtags.append(tag['text'])
+                selection.append({'hashtags': hashtags})
+                try:
+                    image_url = tweet['entities']['media'][0]['media_url']
+                    selection.append({'image_url': image_url})
+                except:
+                    pass # no image
+                response.append(selection)
         except:
-            pass
-        response.append(selection)
+            pass #possible sensitive content
     return response

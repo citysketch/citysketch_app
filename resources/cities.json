@@ -5,12 +5,6 @@
     "wikipedia": "Adak,_Alaska",
     "city": "Adak"
   },
-  "nuku%ca%bbalofa": {
-    "lat": -21.133,
-    "lon": -175.2,
-    "wikipedia": "Nuku%CA%BBalofa",
-    "city": "Nuku%CA%BBalofa"
-  },
   "apia": {
     "lat": -13.833,
     "lon": -171.833,
@@ -365,12 +359,6 @@
     "wikipedia": "Memphis,_Tennessee",
     "city": "Memphis"
   },
-  "m%c3%a9rida": {
-    "lat": 20.967,
-    "lon": -89.617,
-    "wikipedia": "M%C3%A9rida,_Yucat%C3%A1n",
-    "city": "M%C3%A9rida"
-  },
   "sansalvador": {
     "lat": 13.683,
     "lon": -89.183,
@@ -442,12 +430,6 @@
     "lon": -84.383,
     "wikipedia": "Atlanta",
     "city": "Atlanta"
-  },
-  "sanjos%c3%a9": {
-    "lat": 9.933,
-    "lon": -84.083,
-    "wikipedia": "San_Jos%C3%A9,_Costa_Rica",
-    "city": "San Jos%C3%A9"
   },
   "detroit": {
     "lat": 42.333,
@@ -605,11 +587,11 @@
     "wikipedia": "Ottawa",
     "city": "Ottawa"
   },
-  "medell%c3%adn": {
+  "medellin": {
     "lat": 6.233,
     "lon": -75.567,
     "wikipedia": "Medell%C3%ADn",
-    "city": "Medell%C3%ADn"
+    "city": "Medellin"
   },
   "cartagena": {
     "lat": 10.4,
@@ -641,11 +623,11 @@
     "wikipedia": "Jersey_City,_New_Jersey",
     "city": "Jersey City"
   },
-  "bogot%c3%a1": {
+  "bogota": {
     "lat": 4.6,
     "lon": -74.067,
-    "wikipedia": "Bogot%C3%A1",
-    "city": "Bogot%C3%A1"
+    "wikipedia": "Bogota",
+    "city": "Bogota"
   },
   "newyorkcity": {
     "lat": 40.717,
@@ -671,11 +653,11 @@
     "wikipedia": "Valdivia,_Chile",
     "city": "Valdivia"
   },
-  "concepci%c3%b3n": {
+  "concepcion": {
     "lat": -36.833,
     "lon": -73.05,
-    "wikipedia": "Concepci%C3%B3n,_Chile",
-    "city": "Concepci%C3%B3n"
+    "wikipedia": "Concepcionn,_Chile",
+    "city": "Concepcion"
   },
   "portauprince": {
     "lat": 18.533,
@@ -695,11 +677,11 @@
     "wikipedia": "Maracaibo",
     "city": "Maracaibo"
   },
-  "valpara%c3%adso": {
+  "valparaiso": {
     "lat": -33.05,
     "lon": -71.617,
-    "wikipedia": "Valpara%C3%ADso",
-    "city": "Valpara%C3%ADso"
+    "wikipedia": "Valparaiso",
+    "city": "Valparaiso"
   },
   "arequipa": {
     "lat": -16.4,
@@ -875,11 +857,11 @@
     "wikipedia": "Road_Town",
     "city": "Road Town"
   },
-  "c%c3%b3rdoba": {
+  "cordoba": {
     "lat": -31.4,
     "lon": -64.183,
-    "wikipedia": "C%C3%B3rdoba,_Argentina",
-    "city": "C%C3%B3rdoba"
+    "wikipedia": "Cordoba,_Argentina",
+    "city": "Cordoba"
   },
   "portovelho": {
     "lat": -8.75,
@@ -917,23 +899,23 @@
     "wikipedia": "Basse-Terre",
     "city": "Basse-Terre"
   },
-  "bah%c3%adablanca": {
+  "bahiadablanca": {
     "lat": -38.717,
     "lon": -62.267,
-    "wikipedia": "Bah%C3%ADa_Blanca",
-    "city": "Bah%C3%ADa Blanca"
+    "wikipedia": "Bahia_Blanca",
+    "city": "Bahia Blanca"
   },
-  "st.john%27s": {
+  "st.johns": {
     "lat": 47.55,
     "lon": -52.7,
-    "wikipedia": "St._John%27s,_Newfoundland_and_Labrador",
-    "city": "St. John%27s"
+    "wikipedia": "St._Johns,_Newfoundland_and_Labrador",
+    "city": "St. John's"
   },
-  "st.george%27s": {
+  "st.georges": {
     "lat": 12.05,
     "lon": -61.75,
-    "wikipedia": "St._George%27s,_Grenada",
-    "city": "St. George%27s"
+    "wikipedia": "St._Georges,_Grenada",
+    "city": "St. George's"
   },
   "portofspain": {
     "lat": 10.667,
@@ -1013,11 +995,11 @@
     "wikipedia": "Stanley,_Falkland_Islands",
     "city": "Stanley"
   },
-  "asunci%c3%b3n": {
+  "asuncion": {
     "lat": -25.267,
     "lon": -57.667,
-    "wikipedia": "Asunci%C3%B3n",
-    "city": "Asunci%C3%B3n"
+    "wikipedia": "Asuncion",
+    "city": "Asuncion"
   },
   "saintpierre": {
     "lat": 46.767,
@@ -1031,11 +1013,11 @@
     "wikipedia": "Montevideo",
     "city": "Montevideo"
   },
-  "cuiab%c3%a1": {
+  "cuiaba": {
     "lat": -15.583,
     "lon": -56.083,
-    "wikipedia": "Cuiab%C3%A1",
-    "city": "Cuiab%C3%A1"
+    "wikipedia": "Cuiaba",
+    "city": "Cuiaba"
   },
   "paramaribo": {
     "lat": 5.867,
@@ -1055,11 +1037,11 @@
     "wikipedia": "Ciudad_del_Este",
     "city": "Ciudad del Este"
   },
-  "chu%c3%ad": {
+  "chui": {
     "lat": -33.683,
     "lon": -53.45,
-    "wikipedia": "Chu%C3%AD",
-    "city": "Chu%C3%AD"
+    "wikipedia": "Chui",
+    "city": "Chui"
   },
   "pelotas": {
     "lat": -31.767,
@@ -1085,11 +1067,11 @@
     "wikipedia": "Porto_Alegre",
     "city": "Porto Alegre"
   },
-  "macap%c3%a1": {
+  "macapa": {
     "lat": 0.033,
     "lon": -51.05,
-    "wikipedia": "Macap%C3%A1",
-    "city": "Macap%C3%A1"
+    "wikipedia": "Macapa",
+    "city": "Macapa"
   },
   "assis": {
     "lat": -22.65,
@@ -1103,17 +1085,17 @@
     "wikipedia": "Curitiba",
     "city": "Curitiba"
   },
-  "bel%c3%a9m": {
+  "belem": {
     "lat": 1.467,
     "lon": -48.483,
-    "wikipedia": "Bel%C3%A9m",
-    "city": "Bel%C3%A9m"
+    "wikipedia": "Belem",
+    "city": "Belem"
   },
-  "bras%c3%adlia": {
+  "brasilia": {
     "lat": -15.8,
     "lon": -47.9,
-    "wikipedia": "Bras%C3%ADlia",
-    "city": "Bras%C3%ADlia"
+    "wikipedia": "Brasilia",
+    "city": "Brasília"
   },
   "campinas": {
     "lat": -22.9,
@@ -1121,17 +1103,17 @@
     "wikipedia": "Campinas",
     "city": "Campinas"
   },
-  "s%c3%a3opaulo": {
+  "saopaulo": {
     "lat": -23.55,
     "lon": -46.633,
-    "wikipedia": "S%C3%A3o_Paulo",
-    "city": "S%C3%A3o Paulo"
+    "wikipedia": "Sao_Paulo",
+    "city": "Sao Paulo"
   },
-  "s%c3%a3ojos%c3%a9doscampos": {
+  "saojosedoscampos": {
     "lat": -23.183,
     "lon": -45.867,
-    "wikipedia": "S%C3%A3o_Jos%C3%A9_dos_Campos",
-    "city": "S%C3%A3o Jos%C3%A9 dos Campos"
+    "wikipedia": "Sao_Jose_dos_Campos",
+    "city": "Sao Jose dos Campos"
   },
   "riodejaneiro": {
     "lat": -22.9,
@@ -1139,17 +1121,17 @@
     "wikipedia": "Rio_de_Janeiro",
     "city": "Rio de Janeiro"
   },
-  "vit%c3%b3ria": {
+  "vitoria": {
     "lat": -20.317,
     "lon": -40.333,
-    "wikipedia": "Vit%C3%B3ria,_Brazil",
-    "city": "Vit%C3%B3ria"
+    "wikipedia": "Vitoria,_Brazil",
+    "city": "Vitoria"
   },
-  "ilh%c3%a9us": {
+  "ilheus": {
     "lat": -14.783,
     "lon": -39.05,
-    "wikipedia": "Ilh%C3%A9us",
-    "city": "Ilh%C3%A9us"
+    "wikipedia": "Ilheus",
+    "city": "Ilheus"
   },
   "fortaleza": {
     "lat": -3.767,
@@ -1157,11 +1139,11 @@
     "wikipedia": "Fortaleza",
     "city": "Fortaleza"
   },
-  "macei%c3%b3": {
+  "maceio": {
     "lat": -9.65,
     "lon": -35.717,
-    "wikipedia": "Macei%C3%B3",
-    "city": "Macei%C3%B3"
+    "wikipedia": "Maceio",
+    "city": "Maceio"
   },
   "recife": {
     "lat": -8.067,
@@ -1175,16 +1157,16 @@
     "wikipedia": "Horta_(Azores)",
     "city": "Horta (Azores)"
   },
-  "angradohero%c3%adsmo": {
+  "angradoheroismo": {
     "lat": 38.65,
     "lon": -27.217,
-    "wikipedia": "Angra_do_Hero%C3%ADsmo",
-    "city": "Angra do Hero%C3%ADsmo"
+    "wikipedia": "Angra_do_Heroismo",
+    "city": "Angra do Heroismo"
   },
   "pontadelgada": {
     "lat": 37.733,
     "lon": -25.667,
-    "wikipedia": "Ponta_Delgada,_S%C3%A3o_Miguel_Island",
+    "wikipedia": "Ponta_Delgada",
     "city": "Ponta Delgada"
   },
   "praia": {
@@ -1193,11 +1175,11 @@
     "wikipedia": "Praia",
     "city": "Praia"
   },
-  "reykjav%c3%adk": {
+  "reykjavik": {
     "lat": 64.133,
     "lon": -21.933,
-    "wikipedia": "Reykjav%C3%ADk",
-    "city": "Reykjav%C3%ADk"
+    "wikipedia": "Reykjavik",
+    "city": "Reykjavik"
   },
   "dakar": {
     "lat": 14.683,
@@ -1205,11 +1187,11 @@
     "wikipedia": "Dakar",
     "city": "Dakar"
   },
-  "thi%c3%a8s": {
+  "thies": {
     "lat": 14.833,
     "lon": -17.1,
-    "wikipedia": "Thi%C3%A8s",
-    "city": "Thi%C3%A8s"
+    "wikipedia": "Thies",
+    "city": "Thies"
   },
   "serekunda": {
     "lat": 13.433,
@@ -1265,12 +1247,6 @@
     "wikipedia": "Freetown",
     "city": "Freetown"
   },
-  "elaai%c3%ban": {
-    "lat": 27.15,
-    "lon": -13.2,
-    "wikipedia": "El_Aai%C3%BAn",
-    "city": "El Aai%C3%BAn"
-  },
   "monrovia": {
     "lat": 6.317,
     "lon": -10.767,
@@ -1325,11 +1301,11 @@
     "wikipedia": "Rabat",
     "city": "Rabat"
   },
-  "t%c3%b3rshavn": {
+  "torshavn": {
     "lat": 62.0,
     "lon": -6.783,
-    "wikipedia": "T%C3%B3rshavn",
-    "city": "T%C3%B3rshavn"
+    "wikipedia": "Torshavn",
+    "city": "Torshavn"
   },
   "dublin": {
     "lat": 53.333,
@@ -1373,11 +1349,11 @@
     "wikipedia": "Douglas,_Isle_of_Man",
     "city": "Douglas"
   },
-  "m%c3%a1laga": {
+  "malaga": {
     "lat": 36.717,
     "lon": -4.417,
-    "wikipedia": "M%C3%A1laga",
-    "city": "M%C3%A1laga"
+    "wikipedia": "Malaga",
+    "city": "Malaga"
   },
   "glasgow": {
     "lat": 55.85,
@@ -1493,11 +1469,11 @@
     "wikipedia": "Greenwich",
     "city": "Greenwich"
   },
-  "lom%c3%a9": {
+  "lome": {
     "lat": 6.133,
     "lon": 1.2,
-    "wikipedia": "Lom%C3%A9",
-    "city": "Lom%C3%A9"
+    "wikipedia": "Lome",
+    "city": "Lome"
   },
   "toulouse": {
     "lat": 43.6,
@@ -1631,17 +1607,17 @@
     "wikipedia": "Geneva",
     "city": "Geneva"
   },
-  "s%c3%a3otom%c3%a9": {
+  "saotome": {
     "lat": 0.333,
     "lon": 6.683,
-    "wikipedia": "S%C3%A3o_Tom%C3%A9",
-    "city": "S%C3%A3o Tom%C3%A9"
+    "wikipedia": "Sao_Tome",
+    "city": "Sao Tome"
   },
-  "d%c3%bcsseldorf": {
+  "dusseldorf": {
     "lat": 51.233,
     "lon": 6.783,
-    "wikipedia": "D%C3%BCsseldorf",
-    "city": "D%C3%BCsseldorf"
+    "wikipedia": "Dusseldorf",
+    "city": "Dusseldorf"
   },
   "cologne": {
     "lat": 50.95,
@@ -1673,12 +1649,6 @@
     "wikipedia": "Bern",
     "city": "Bern"
   },
-  "abuja": {
-    "lat": 9.067,
-    "lon": 7.483,
-    "wikipedia": "Abuja",
-    "city": "Abuja"
-  },
   "enugu": {
     "lat": 6.45,
     "lon": 7.5,
@@ -1703,11 +1673,11 @@
     "wikipedia": "Kano",
     "city": "Kano"
   },
-  "z%c3%bcrich": {
+  "zurich": {
     "lat": 47.367,
     "lon": 8.55,
-    "wikipedia": "Z%C3%BCrich",
-    "city": "Z%C3%BCrich"
+    "wikipedia": "Zurich",
+    "city": "Zurich"
   },
   "frankfurt": {
     "lat": 50.1,
@@ -1787,11 +1757,11 @@
     "wikipedia": "Innsbruck",
     "city": "Innsbruck"
   },
-  "yaound%c3%a9": {
+  "yaounde": {
     "lat": 3.867,
     "lon": 11.517,
-    "wikipedia": "Yaound%C3%A9",
-    "city": "Yaound%C3%A9"
+    "wikipedia": "Yaounde",
+    "city": "Yaounde"
   },
   "munich": {
     "lat": 48.133,
@@ -1835,11 +1805,11 @@
     "wikipedia": "Copenhagen",
     "city": "Copenhagen"
   },
-  "malm%c3%b6": {
+  "malmo": {
     "lat": 55.583,
     "lon": 13.033,
-    "wikipedia": "Malm%C3%B6",
-    "city": "Malm%C3%B6"
+    "wikipedia": "Malmo",
+    "city": "Malmo"
   },
   "salzburg": {
     "lat": 47.8,
@@ -1913,11 +1883,11 @@
     "wikipedia": "Valletta",
     "city": "Valletta"
   },
-  "n%27djamena": {
+  "ndjamena": {
     "lat": 12.1,
     "lon": 15.05,
-    "wikipedia": "N%27Djamena",
-    "city": "N%27Djamena"
+    "wikipedia": "NDjamena",
+    "city": "NDjamena"
   },
   "brazzaville": {
     "lat": -4.267,
@@ -1991,17 +1961,17 @@
     "wikipedia": "Bangui",
     "city": "Bangui"
   },
-  "gda%c5%84sk": {
+  "gdansk": {
     "lat": 54.35,
     "lon": 18.667,
-    "wikipedia": "Gda%C5%84sk",
-    "city": "Gda%C5%84sk"
+    "wikipedia": "Gdansk",
+    "city": "Gdansk"
   },
   "budapest": {
     "lat": 47.467,
     "lon": 19.05,
     "wikipedia": "Budapest",
-    "city": "Budapest"
+      "city": "Budapest"
   },
   "podgorica": {
     "lat": 42.467,
@@ -2015,11 +1985,11 @@
     "wikipedia": "Tirana",
     "city": "Tirana"
   },
-  "krak%c3%b3w": {
+  "krakow": {
     "lat": 50.05,
     "lon": 19.933,
-    "wikipedia": "Krak%C3%B3w",
-    "city": "Krak%C3%B3w"
+    "wikipedia": "Krakow",
+    "city": "Krakow"
   },
   "belgrade": {
     "lat": 44.817,
@@ -2147,11 +2117,11 @@
     "wikipedia": "Tartu",
     "city": "Tartu"
   },
-  "%c4%b0zmir": {
+  "Izmir": {
     "lat": 38.433,
     "lon": 27.15,
-    "wikipedia": "%C4%B0zmir",
-    "city": "%C4%B0zmir"
+    "wikipedia": "Izmir",
+    "city": "Izmir"
   },
   "lubumbashi": {
     "lat": -11.667,
@@ -2207,11 +2177,11 @@
     "wikipedia": "Bulawayo",
     "city": "Bulawayo"
   },
-  "chi%c5%9fin%c4%83u": {
+  "chisinau": {
     "lat": 47.0,
     "lon": 28.867,
-    "wikipedia": "Chi%C5%9Fin%C4%83u",
-    "city": "Chi%C5%9Fin%C4%83u"
+    "wikipedia": "Chisinau",
+    "city": "Chisinau"
   },
   "istanbul": {
     "lat": 41.0,
@@ -2531,11 +2501,11 @@
     "wikipedia": "Tskhinvali",
     "city": "Tskhinvali"
   },
-  "sana%27a": {
+  "sanaa": {
     "lat": 15.35,
     "lon": 44.2,
-    "wikipedia": "Sana%27a",
-    "city": "Sana%27a"
+    "wikipedia": "Sanaa",
+    "city": "Sanaa"
   },
   "baghdad": {
     "lat": 33.317,
@@ -2678,7 +2648,7 @@
   "saintdenis": {
     "lat": -20.867,
     "lon": 55.45,
-    "wikipedia": "Saint-Denis,_R%C3%A9union",
+    "wikipedia": "Saint-Denis",
     "city": "Saint-Denis"
   },
   "perm": {
@@ -2825,12 +2795,6 @@
     "wikipedia": "Omsk",
     "city": "Omsk"
   },
-  "mal%c3%a9": {
-    "lat": 4.167,
-    "lon": 73.5,
-    "wikipedia": "Mal%C3%A9",
-    "city": "Mal%C3%A9"
-  },
   "pune": {
     "lat": 18.517,
     "lon": 73.85,
@@ -2957,11 +2921,11 @@
     "wikipedia": "Kathmandu",
     "city": "Kathmandu"
   },
-  "%c3%9cr%c3%bcmqi": {
+  "urumqi": {
     "lat": 43.8,
     "lon": 87.583,
-    "wikipedia": "%C3%9Cr%C3%BCmqi",
-    "city": "%C3%9Cr%C3%BCmqi"
+    "wikipedia": "Urumqi",
+    "city": "Urumqi"
   },
   "norilsk": {
     "lat": 69.35,
@@ -3269,11 +3233,11 @@
     "wikipedia": "Bandung",
     "city": "Bandung"
   },
-  "hu%e1%ba%bf": {
+  "hue": {
     "lat": 16.467,
     "lon": 107.6,
-    "wikipedia": "Hu%E1%BA%BF",
-    "city": "Hu%E1%BA%BF"
+    "wikipedia": "Hue",
+    "city": "Hue"
   },
   "danang": {
     "lat": 16.067,
@@ -3287,11 +3251,11 @@
     "wikipedia": "Nanning",
     "city": "Nanning"
   },
-  "xi%27an": {
+  "xian": {
     "lat": 34.267,
     "lon": 108.9,
-    "wikipedia": "Xi%27an",
-    "city": "Xi%27an"
+    "wikipedia": "Xian",
+    "city": "Xian"
   },
   "pontianak": {
     "lat": 0.0,
@@ -3749,11 +3713,11 @@
     "wikipedia": "Geelong",
     "city": "Geelong"
   },
-  "hag%c3%a5t%c3%b1a": {
+  "hagatna": {
     "lat": 13.483,
     "lon": 144.75,
-    "wikipedia": "Hag%C3%A5t%C3%B1a,_Guam",
-    "city": "Hag%C3%A5t%C3%B1a"
+    "wikipedia": "Hagatna,_Guam",
+    "city": "Hagatna"
   },
   "dededo": {
     "lat": 13.517,
@@ -3869,11 +3833,11 @@
     "wikipedia": "Honiara",
     "city": "Honiara"
   },
-  "noum%c3%a9a": {
+  "noumea": {
     "lat": -22.267,
     "lon": 166.45,
-    "wikipedia": "Noum%C3%A9a",
-    "city": "Noum%C3%A9a"
+    "wikipedia": "Noumea",
+    "city": "Noumea"
   },
   "yarendistrict": {
     "lat": -0.55,

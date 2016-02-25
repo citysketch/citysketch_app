@@ -97,13 +97,22 @@ def city_description():
     return json.dumps(response)
 
 
-# return weather json
+# return twitter json
 @app.route('/twitter-json', methods=['GET'])
 def twitter_json():
     city = request.args.get('city')
     result = external._lookup_twitter(city)
     return jsonify({'twitter-json': result})
 
+
+# return true if city input was tested
+@app.route('/tested-city', methods=['GET'])
+def tested_city():
+    city = request.args.get('city')
+    if city in valid_cities.tested_list:
+        return jsonify({'response': 'true'})
+    else:
+        return jsonify({'response': 'false'})
 
 
 if __name__ == '__main__':
