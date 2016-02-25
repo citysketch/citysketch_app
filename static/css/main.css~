@@ -26,8 +26,18 @@
 }
 
 
-#search-button, #refresh-button, #random-buttom {
-    width: 100px;
+#search-button, #refresh-button, #random-button {
+    width: auto;
+}
+
+#twitter-logo {
+    max-height: 59px;
+}
+
+#twitter-link {
+    color: #55acee;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .twitter-image {

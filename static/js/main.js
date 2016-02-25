@@ -37,6 +37,35 @@ var updateCityTitle = function() {
 }
 
 
+// given the city name, update description in jumbotron
+var updateCityDescription = function(city) {
+
+    // Make a request for the description.
+    var setText = function() {
+       $.ajax({
+	   url: "city-description?" + 'city=' + city,
+	   dataType: "json",
+	   success: function(response) {
+	       $('#city-description').empty();
+	       var contents = response['text'] + '<a href="' + 
+		   response['url'] + '" target="_blank"> [details]</a>';
+	       $('#city-description').append('<p>' + contents + '</p>');
+	   },
+	   error: function () {
+               setTimeout(function () {
+                   setText();
+               }, 2000)
+           }
+       });
+    };
+ 
+    $('#city-description').empty();
+    $('#city-description').append('<p>Updating city description</p>');
+    setText();
+}; // END cityDescription
+// -------------------------------------------------------------------------------------------------
+
+
 // ------------------------------------------------------------------------
 // updateWiki updates #wiki-accordion with wiki search articles
 var updateWiki = function(city) {
@@ -91,33 +120,6 @@ var updateWiki = function(city) {
 // -------------------------------------------------------------------------------------------------
 
 
-// given the city name, update description in jumbotron
-var updateCityDescription = function(city) {
-
-    // Make a request for the description.
-    var setText = function() {
-       $.ajax({
-	   url: "city-description?" + 'city=' + city,
-	   dataType: "json",
-	   success: function(response) {
-	       $('#city-description').empty();
-	       var contents = response['text'] + '<a href="' + 
-		   response['url'] + '" target="_blank"> [details]</a>';
-	       $('#city-description').append('<p>' + contents + '</p>');
-	   },
-	   error: function () {
-               setTimeout(function () {
-                   setText();
-               }, 2000)
-           }
-       });
-    };
- 
-    $('#city-description').empty();
-    $('#city-description').append('<p>Updating city description</p>');
-    setText();
-}; // END cityDescription
-// -------------------------------------------------------------------------------------------------
 
 
 // Update twitter feed
@@ -131,22 +133,28 @@ var updateTwitter = function(city) {
        success: function(response) {
 	   $('#twitter-link').append('<a href="https://twitter.com/search?q=' + city + '" target="_blank">' +
 				     'Twitter ' + city + '</a>');
-	   var tweets = response['twitter-json']
-	   for (i = 0; i < tweets.length; i++) {
-	       var date = new Date(tweets[i][0]['date'])
-	       // output item to be appended
-	       var item = '<p><span class="twitter-date">' + date.getMonth() + "/" + date.getDate() + 
-		   "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + "</span></br>" +
-		   tweets[i][1]['text'];
-		
-	       // append image, if exists
-	       $('#twitter-content').append(item);
-	       try {
-		   var imageUrl = tweets[i][3]['image_url'];
-		   $('#twitter-content').append('<img class="twitter-image" src="' + imageUrl + '">');
+	   
+	   if (response['twitter-json'] == 'twitter_not_allowed') {
+	       $('#twitter-content').append('<p>No twitter feed available</p>');
+	   }
+	   else {
+	       var tweets = response['twitter-json']
+	       for (i = 0; i < tweets.length; i++) {
+		   var date = new Date(tweets[i][0]['date'])
+		   // output item to be appended
+		   var item = '<p><span class="twitter-date">' + date.getMonth() + "/" + date.getDate() + 
+		       "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + "</span></br>" +
+		       tweets[i][1]['text'];
+		   
+		   // append image, if exists
+		   $('#twitter-content').append(item);
+		   try {
+		       var imageUrl = tweets[i][3]['image_url'];
+		       $('#twitter-content').append('<img class="twitter-image" src="' + imageUrl + '">');
+		   }
+		   catch(e) {}
+		   $('#twitter-content').append('<hr>');
 	       }
-	       catch(e) {}
-	       $('#twitter-content').append('<hr>');
 	   }
        },
        error: function () {
