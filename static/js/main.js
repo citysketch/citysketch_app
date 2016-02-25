@@ -94,7 +94,6 @@ var updateWiki = function(city) {
 
 // given the city name, update description in jumbotron
 var updateCityDescription = function(city) {
-    $('#city-description').empty();
 
     // Make a request for the description.
     var setText = function() {
@@ -102,6 +101,7 @@ var updateCityDescription = function(city) {
 	   url: "city-description?" + 'city=' + city,
 	   dataType: "json",
 	   success: function(response) {
+	       $('#city-description').empty();
 	       var contents = response['text'] + '<a href="' + 
 		   response['url'] + '" target="_blank"> [details]</a>';
 	       $('#city-description').append('<p>' + contents + '</p>');
@@ -109,11 +109,13 @@ var updateCityDescription = function(city) {
 	   error: function () {
                setTimeout(function () {
                    setText();
-               }, 1500)
+               }, 2000)
            }
        });
     };
  
+    $('#city-description').empty();
+    $('#city-description').append('<p>Updating city description</p>');
     setText();
 }; // END cityDescription
 // -------------------------------------------------------------------------------------------------
