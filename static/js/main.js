@@ -45,7 +45,6 @@ var updateWiki = function(city) {
     // update screen using resource
     var updateWikiScreen = function(response) {
 	$('#wiki-accordion').empty();
-	$('#city-description').empty();
 	if (response[1].length != 0) {	 	    
 	    for (i = 0; i < response[1].length; i++) {
 		// parse response and update wiki-accordion
