@@ -1,12 +1,13 @@
 import external
+import requests
 
 """
-Use wiki articles to return a description of the city
+Return description of the city, uses wiki as v0
 """
 select_second_article = ['New York']
 
 def _get(city_name):
-    articles = external._lookup_wikipedia(city_name)
+    articles = get_wiki(city_name)
     # if 'New York' select second articles
     if (city_name in select_second_article):
         title = articles[1][1]
@@ -21,3 +22,12 @@ def _get(city_name):
     return response
 
 
+def get_wiki(city_name):
+    url = 'https://en.wikipedia.org/w/api.php'
+    params = {
+        'action': 'opensearch',
+        'search': city_name,
+        'format': 'json'
+    }
+    response = requests.get(url, params=params).json()
+    return response

@@ -3,6 +3,11 @@
     max-height: 43px;
 }
 
+#beta-city {
+    font-size: 14px;
+    color: red;
+}
+
 #img-color-city {
     max-width: 100%;
 }

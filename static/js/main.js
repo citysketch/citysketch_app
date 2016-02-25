@@ -18,8 +18,26 @@ var City = function(ci, co, loc) {
 var currentCity;
 
 // ------------------------------------------------------------------------
+// update title and country
+var updateCityTitle = function() {
+    $('#city-input').val("");
+    $('#city-input').attr('placeholder', currentCity.name);
+    $('#city-title').html(currentCity.name + " (" + currentCity.country + ")");
+    // check if tested
+    $.ajax({
+	url: "tested-city?" + 'city=' + currentCity.name,
+	dataType: "json",
+	success: function(response) {
+	    if (response['response'] == 'false') {
+		$('#city-title').html(currentCity.name + " (" + currentCity.country + ")" + 
+				     '<span id="beta-city"> beta results</span>');
+	    }
+	}
+    })
+}
 
 
+// ------------------------------------------------------------------------
 // updateWiki updates #wiki-accordion with wiki search articles
 var updateWiki = function(city) {
     var city = city;
@@ -126,7 +144,7 @@ var updateTwitter = function(city) {
 	   }
        },
        error: function () {
-           $('#twitter-content').append('<p>No city description available</p>');
+           $('#twitter-content').append('<p>No twitter feed available</p>');
        }
    });
 	
@@ -281,10 +299,7 @@ var updateScreen = function(city) {
     var lon = city.loc['lng'];
     
     // methods
-    $('#city-input').val("");
-    $('#city-input').attr('placeholder', city.name);
-    $('#city-title').html(city.name + " (" + city.country + ")");
-    
+    updateCityTitle();
     updateWiki(city.name);
     updateCityDescription(city.name);
     updateTime(lat, lon);
