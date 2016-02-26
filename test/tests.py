@@ -1,9 +1,12 @@
 import os
 parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-os.sys.path.insert(0,parentdir) 
+os.sys.path.insert(0,parentdir)
+
+import oauth2
+
 import external
 import valid_cities
-import oauth2
+#import email_support
 
 def test_gmaps(city):
     return external._gmaps_lookup_city(city)
@@ -29,9 +32,18 @@ def oauth_req():
     
     home_timeline = oauth_req( 'https://api.twitter.com/1.1/statuses/home_timeline.json', 'abcdefg', 'hijklmnop' )
 
+def test_email():
+    subject = 'Test flask email'
+    sender = 'test@outlook.com'
+    recipients = 'citysketch@outlook.com'
+    text_body = 'Test text from flask app'
+    email_support.send_email(subject, sender, recipients, text_body)
+
 
 
 if __name__ == "__main__":
     #print(test_gmaps("Mexico City"))
     #print(test_autocomplete())
     print(test_twitter("paris"))
+    #test_email()
+    

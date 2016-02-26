@@ -1,10 +1,27 @@
-{% extends "main_template.html" %}
+{% extends "base.html" %}
+
+
+{% block search_block %}
+<!-- START search panel -->
+<ul class="nav navbar-nav navbar-right" id="search-group">
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Enter city" 
+	   id="city-input">
+    <span class="input-group-btn">
+      <button class="btn btn-success" type="button" id="search-button">
+	Sketch City!</button>
+      <button class="btn btn-success" type="button" id="refresh-button">
+	Refresh</button>
+      <button class="btn btn-info" type="button" id="random-button">
+	Random city</button>
+    </span>
+  </div><!-- /input-group -->
+</ul>
+<!-- END search panel -->
+{% endblock %}
+
 
 {% block body_block %}
-
-
-
-
 
 <!-- main container -->
 <div class = "container">

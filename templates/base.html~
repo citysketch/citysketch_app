@@ -47,23 +47,12 @@
 	  <ul class="nav navbar-nav">
 	    <li><a href="/">home</a></li>
 	  </ul>
-
-	  <!-- START search panel -->
-	  <ul class="nav navbar-nav navbar-right" id="search-group">
-	    <div class="input-group">
-	      <input type="text" class="form-control" placeholder="Enter city" 
-		     id="city-input">
-	      <span class="input-group-btn">
-		<button class="btn btn-success" type="button" id="search-button">
-		  Sketch City!</button>
-		<button class="btn btn-success" type="button" id="refresh-button">
-		  Refresh</button>
-		<button class="btn btn-info" type="button" id="random-button">
-		  Random city</button>
-	      </span>
-	    </div><!-- /input-group -->
+	  <ul class="nav navbar-nav">
+	    <li><a href="/contact-us">contact us</a></li>
 	  </ul>
-	  <!-- END search panel -->
+
+	  {% block search_block %}{% endblock %}
+
 	</div> <!-- END .collapse -->
       </div> <!-- END .container -->
 
@@ -86,8 +75,18 @@
 	      <img src="../static/img/Wiki-logo.png" alt="MediaWiki logo" height="50px">
 	    </a>
 	    <a href="http://openweathermap.org/api" target="_blank"> 
-	      <img src="../static/img/OpenWeatherMap-logo.png" alt="OpenWeatherMap logo" width="150px">
+	      <img src="../static/img/OpenWeatherMap-logo.png" alt="OpenWeatherMap logo" height="30px">
 	    </a>
+	    <a href="https://developers.google.com/maps/" target="_blank"> 
+	      <img src="../static/img/Google-Maps.png" alt="Google Maps API logo" height="30px">
+	    </a>
+	    <a href="https://dev.twitter.com/rest/public" target="_blank"> 
+	      <img src="../static/img/Twitter-dev-logo.png" alt="Twitter API logo" height="30px">
+	    </a>
+	    <a href="https://timezonedb.com/api" target="_blank"> 
+	      <img src="../static/img/Timezonedb.png" alt="Timezonedb logo" height="30px">
+	    </a>
+
 	  </p>
 	</div> <!-- END col -->
       </div> <!-- END row 3 -->
