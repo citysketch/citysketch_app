@@ -75,7 +75,7 @@ def wiki_json():
     city_name = request.args.get('city')
     country_name = request.args.get('country')
 
-    result = external._lookup_wikipedia(city_name, country_name)
+    result = external._lookup_wikipedia(city_name) # generates multiple articles
     return jsonify({'wiki-json': result})
 
 # return NYT json
@@ -123,7 +123,7 @@ def autocomplete():
 def city_description():
     city_name = request.args.get('city')
     country_name = request.args.get('country')
-    response = city_desc.get_city_description(city_name, country_name)
+    response = city_desc.get_city_description(city_name, country_name) # generates the most accurate article
     return json.dumps(response)
 
 
