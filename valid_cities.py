@@ -1,4 +1,4 @@
-### This module contains city lists
+### This module contains city tested list
 
 import json
 
@@ -19,18 +19,23 @@ def autocomplete_list():
 """
 The list of cities that are known to have working city pages.
 """
-tested_list = ['Seoul', 'Delhi', 'Shanghai',
-            'New York', 'Sao Paulo', 'Mexico City', 'Cairo',
-            'Beijing', 'Osaka', 'Mumbai', 'Guangzhou', 'Moscow',
-            'Los Angeles', 'Calcutta', 'Dhaka', 'Buenos Aires', 'Istanbul',
-            'Rio de Janeiro', 'Shenzhen', 'Paris', 'Nagoya',
-            'Lima', 'Chicago', 'Kinshasa', 'Tianjin', 'Chennai']
-
-
-"""
-The list of cities whose pages should exclude Twitter feeds.
-"""
-twitter_ban = ['Manila', 'Abuja']
+tested_list = ['Antwerp', 'Atlanta',
+               'Berlin', 'Brussels',
+               'Calgary', 'Canberra',
+               'Denver', 'Doha', 'Dublin', 
+               'Hamburg', 'Helsinki', 'Honolulu',
+               'Kabul', 'Kigali',
+               'Lima', 'Lisbon',
+               'Madrid', 'Manama',
+               'Nairobi', 
+               'Paris', 'Prague',
+               'Rabat', 'Riyadh', 'Rome', 'Rotterdam',
+               'Seville', 'Stockholm', 
+               'Toronto', 
+               'Valencia', 'Vienna',
+               'Warsaw',
+               'Yokohama',
+               'Zagreb']
 
 
 _cached_autocomplete_list = None
@@ -46,5 +51,3 @@ def _build_autocomplete_list():
         auto_list.append(json_file.values()[i]['city'])
     auto_list.sort()
     return auto_list
-
-

@@ -10,7 +10,7 @@ from sensitive_text import sensitive_text
 Use twitter API and oauth2 authetication to obtain twitter search results
 """
 def get_twitter(city, location):
-    if city not in valid_cities.twitter_ban:
+    if city in valid_cities.tested_list:
         # create a hashtag by removing all spaces and prepending a '#'
         #  (e.g. "Los Angeles" becomes "#LosAngeles")
         hashtag = '%23' + city.replace(' ', '')
