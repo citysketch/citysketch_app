@@ -14,12 +14,13 @@ def get_twitter(city, location):
         # create a hashtag by removing all spaces and prepending a '#'
         #  (e.g. "Los Angeles" becomes "#LosAngeles")
         hashtag = '%23' + city.replace(' ', '')
-
+        full_name_enc = city.replace(' ', '+')
+        query = hashtag
         geo_string = ','.join([str(location.lat), str(location.lng), '50mi'])
-        count = '130'
+        count = '150'
         param_string = ''.join([
-                        '?q=', hashtag,           # search for the city hashtag
-                        '&geocode=', geo_string,  # constrain using geolocation
+                        '?q=', query,           # search for the city hashtag
+                        #'&geocode=', geo_string,  # constrain using geolocation, not used mostly for job search
                         '&count=', count,         # limit the number of results
                         '&lang=en'                # English language
                         ])
