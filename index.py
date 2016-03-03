@@ -149,17 +149,6 @@ def tested_city():
         return jsonify({'response': 'false'})
 
 
-# return true if city input was tested
-@app.route('/submit-message', methods=['POST'])
-def submit_message():
-    print(request.form['name'])
-    subject = 'Test flask email'
-    sender = 'test@outlook.com'
-    recipients = ['citysketch@outlook.com']
-    text_body = 'Test text from flask app'
-    response = email_support.send_email(subject, sender, recipients, text_body)
-    return render_template('index.html')
-
 if __name__ == '__main__':
   app.debug = False # True used for dev only
   host = '0.0.0.0'

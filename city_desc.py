@@ -12,7 +12,6 @@ def get_city_description(city_name, country_name):
     else:
         articles = external._lookup_wikipedia(city_name, country_name)
         index = 0  # use first result
-    print(articles)
     return {
         'title': articles[1][index],
         'text': articles[2][index],
