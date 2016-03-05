@@ -6,6 +6,7 @@ import oauth2
 import json
 import valid_cities
 import twitter
+import setup
 from city_types import Location, LocalTime
 
 
@@ -104,7 +105,7 @@ def _lookup_weather(location):
         'lon': location.lng,
         'cnt': 16,
         'units': 'imperial',
-        'APPID': 'ef49a278b6557235d3372d9c5416d4f6'
+        'APPID': setup.WEATHER_APPID
     }
 
     return _make_request(url, params)
@@ -131,7 +132,7 @@ Use the New York Times API to retrieve news information for the given city.
 Returns a dictionary on success, None on failure.
 """
 def _lookup_nyt(city_name, country_name):
-    NYT_API_KEY = '532e9278d93c9c359096abdbbf5d65fd:14:74311752'
+    NYT_API_KEY = setup.NYT_API_KEY
 
     url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json'
     params = {
@@ -150,7 +151,7 @@ Returns a LocalTime on success, None on failure.
 def _lookup_time(location):
     import time
 
-    TIMEZONE_DB_KEY = 'RI1ZCW7725DU'
+    TIMEZONE_DB_KEY = setup.TIMEZONE_DB_KEY
 
     url = 'http://api.timezonedb.com/'
     params = {
@@ -178,18 +179,3 @@ Use twitter API and oauth2 authetication to obtain twitter search results
 """
 def _lookup_twitter(city, location):
     return twitter.get_twitter(city, location)
-
-
-"""
-Use Flickr API to retrieve picture urls
-"""
-def _lookup_flickr(city_name):
-    url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search'
-    params = {
-        'api_key': '617d4007458d800217fe1a355accf25d',
-        'api_sig': '25e0ef1dc219ea3a59afa28a821e7b93',
-        'tags': city_name,
-        'format': 'json',
-        'nojsoncallback': '1',
-    }
-    return _make_request(url, params)
